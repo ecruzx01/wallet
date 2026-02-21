@@ -3,110 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expedition Wallet</title>
+    <title>Daily Wallet</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="manifest" href="data:application/json;base64,ewogICJnameIjogIkV4cGVkaXRpb24gV2FsbGV0IiwKICAic2hvcnRfbmFtZSI6ICJXYWxsZXQiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzExMTgyNyIsCiAgInRoZW1lX2NvbG9yIjogIiMxMTE4MjciLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJodHRwczovL2Nkbi1pY29ucy1wbmcuZmxhdGljb24uY29tLzUxMi8yOTM2LzI5MzY3NTMucG5nIiwKICAgICAgInNpemVzIjogIjUxMng1MTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9wbmciCiAgICB9CiAgXQp9">
-    <style>
-        body { background-color: #0f172a; color: white; font-family: sans-serif; }
-        .card-active { border: 2px solid #38bdf8; background: #1e293b; }
-    </style>
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkRhaWx5IFdhbGxldCIsCiAgInNob3J0X25hbWUiOiAiRGFpbHkiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzBkMTExNyIsCiAgInRoZW1lX2NvbG9yIjogIiMwZDExMTciCn0=">
 </head>
-<body class="p-6">
+<body class="bg-[#0d1117] text-gray-100 font-sans min-h-screen p-6">
 
-    <header class="mb-8 text-center">
-        <h1 class="text-3xl font-bold text-sky-400">Riviera Expeditions</h1>
-        <p class="text-slate-400 text-sm">Optimal Card Selector</p>
-    </header>
+    <div class="max-w-md mx-auto">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-extrabold text-blue-400 tracking-tight">Daily Wallet</h1>
+            <p class="text-gray-400 mt-1">Edwin's All-Purpose Selector</p>
+        </header>
 
-    <div id="category-grid" class="grid grid-cols-2 gap-4 mb-8">
-        <button onclick="checkCard('diesel')" class="p-4 bg-slate-800 rounded-xl flex flex-col items-center gap-2">
-            <span class="text-2xl">⛽</span>
-            <span class="text-sm font-semibold">Marina Diesel</span>
-        </button>
-        <button onclick="checkCard('dining')" class="p-4 bg-slate-800 rounded-xl flex flex-col items-center gap-2">
-            <span class="text-2xl">🍽️</span>
-            <span class="text-sm font-semibold">Restaurants</span>
-        </button>
-        <button onclick="checkCard('costco')" class="p-4 bg-slate-800 rounded-xl flex flex-col items-center gap-2">
-            <span class="text-2xl">🛒</span>
-            <span class="text-sm font-semibold">Costco</span>
-        </button>
-        <button onclick="checkCard('tech')" class="p-4 bg-slate-800 rounded-xl flex flex-col items-center gap-2">
-            <span class="text-2xl">📸</span>
-            <span class="text-sm font-semibold">Nikon / Tech</span>
-        </button>
-        <button onclick="checkCard('travel')" class="p-4 bg-slate-800 rounded-xl flex flex-col items-center gap-2">
-            <span class="text-2xl">✈️</span>
-            <span class="text-sm font-semibold">Intl. Travel</span>
-        </button>
-        <button onclick="checkCard('media')" class="p-4 bg-slate-800 rounded-xl flex flex-col items-center gap-2">
-            <span class="text-2xl">📺</span>
-            <span class="text-sm font-semibold">Streaming</span>
-        </button>
-    </div>
+        <div class="mb-6">
+            <label for="category" class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Select Spending Category</label>
+            <select id="category" onchange="updateCard()" class="w-full bg-[#161b22] border border-gray-700 text-white text-base rounded-xl p-4 focus:ring-2 focus:ring-blue-500 outline-none appearance-none cursor-pointer">
+                <option value="" disabled selected>Choose a category...</option>
+                <optgroup label="Essential & Home">
+                    <option value="costco">🛒 Costco (Provisions/Household)</option>
+                    <option value="groceries">🍏 Groceries (Non-Costco)</option>
+                    <option value="healthcare">🏥 Healthcare (Doctors/Medication)</option>
+                    <option value="gas">⛽ Gas Station (Auto)</option>
+                </optgroup>
+                <optgroup label="Lifestyle & Hobby">
+                    <option value="tech">📸 Tech, Cameras & Guns</option>
+                    <option value="dining">🍽️ Restaurants & Bars</option>
+                    <option value="media">📺 Streaming & Subscriptions</option>
+                    <option value="personal">💇 Personal Care (Salon/Spa)</option>
+                </optgroup>
+                <optgroup label="The Riviera (Expedition Mode)">
+                    <option value="diesel">🚤 Marina Diesel & Mooring</option>
+                    <option value="travel">✈️ International Travel</option>
+                </optgroup>
+            </select>
+        </div>
 
-    <div id="result-area" class="hidden animate-in fade-in duration-500">
-        <div class="bg-slate-800 p-6 rounded-2xl border border-sky-500/30">
-            <h2 id="result-title" class="text-xl font-bold mb-2">Recommended Card</h2>
-            <p id="result-card" class="text-2xl font-black text-sky-400 mb-4"></p>
-            <div id="result-benefits" class="text-slate-300 text-sm space-y-2"></div>
+        <div id="display-area" class="hidden opacity-0 translate-y-4 transition-all duration-500 ease-out">
+            <div class="bg-gradient-to-br from-[#1e293b] to-[#0f172a] p-6 rounded-2xl border border-blue-500/30 shadow-2xl">
+                <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-400 mb-2">Recommended Card</p>
+                <h2 id="card-name" class="text-2xl font-black mb-4 tracking-tight"></h2>
+                
+                <div class="space-y-4 border-t border-gray-700 pt-4">
+                    <div>
+                        <p class="text-[10px] font-bold uppercase text-gray-500 mb-1">Key Benefit</p>
+                        <p id="benefit-text" class="text-sm text-gray-300 leading-relaxed"></p>
+                    </div>
+                    <div id="secondary-benefit-box" class="hidden">
+                        <p class="text-[10px] font-bold uppercase text-gray-500 mb-1">Safety & Insurance</p>
+                        <p id="secondary-text" class="text-xs text-gray-400 italic"></p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        const logic = {
-            diesel: {
-                card: "Amex Schwab Platinum",
-                benefits: [
-                    "• Marinas rarely code as 'Gas Stations'.",
-                    "• Earns 1X Membership Rewards point.",
-                    [cite_start]"• Best for high-value points transfer[cite: 1195]."
-                ]
-            },
-            dining: {
-                card: "Costco Anywhere Business",
-                benefits: [
-                    [cite_start]"• 3% Cash Back on restaurants and bars worldwide[cite: 1060].",
-                    "• Includes lounges and fast food."
-                ]
-            },
+        const cards = {
             costco: {
-                card: "Costco Anywhere Business",
-                benefits: [
-                    [cite_start]"• 2% Cash Back on all Costco purchases[cite: 1063].",
-                    [cite_start]"• Card also acts as your membership ID[cite: 1095]."
-                ]
+                name: "Costco Anywhere Business",
+                benefit: "2% Unlimited Cash Back on all Costco purchases[cite: 3594]. Use this for high-volume family provisioning.",
+                safety: ""
+            },
+            groceries: {
+                name: "Amazon Prime Rewards",
+                benefit: "5% Back at Whole Foods Market and Amazon Fresh.",
+                safety: "Purchase Protection covers items for 120 days against damage or theft."
+            },
+            healthcare: {
+                name: "Amex Schwab Platinum",
+                benefit: "Earn 1X Membership Rewards point. Best for standard large medical expenses due to high limit and customer support.",
+                safety: ""
+            },
+            gas: {
+                name: "Costco Anywhere Business",
+                benefit: "4% Cash Back on eligible gas and EV charging (up to $7k/year)[cite: 3588].",
+                safety: ""
             },
             tech: {
-                card: "Amazon Prime Rewards",
-                benefits: [
-                    [cite_start]"• 5% Cash Back on Amazon.com & Whole Foods[cite: 1373].",
-                    [cite_start]"• Includes 1-year Extended Warranty on Nikon gear[cite: 100, 814]."
-                ]
+                name: "Amazon Prime Rewards",
+                benefit: "5% Back on Amazon.com. Perfect for Nikon gear and technology[cite: 3670].",
+                safety: "Extended Warranty adds an extra year to the manufacturer's warranty."
             },
-            travel: {
-                card: "Amex Schwab Platinum",
-                benefits: [
-                    [cite_start]"• 5X Points on flights[cite: 1553].",
-                    [cite_start]"• $1,500,000 Travel Accident Insurance[cite: 651].",
-                    [cite_start]"• Priority Pass & Centurion Lounge access[cite: 2407, 2264]."
-                ]
+            dining: {
+                name: "Costco Anywhere Business",
+                benefit: "3% Cash Back on restaurants, bars, and cafes worldwide.",
+                safety: ""
             },
             media: {
-                card: "Amex Schwab Platinum",
-                benefits: [
-                    [cite_start]"• $25/month Digital Entertainment Credit[cite: 1373].",
-                    [cite_start]"• Covers Disney+, Hulu, Peacock, and WSJ[cite: 1379]."
-                ]
+                name: "Amex Schwab Platinum",
+                benefit: "Use the $25 monthly Digital Entertainment Credit ($300/year).",
+                safety: "Popular Infinite also offers an $8 monthly streaming credit."
+            },
+            personal: {
+                name: "Amex Schwab Platinum",
+                benefit: "Use for the $100 Saks Fifth Avenue credit ($50 semi-annually) for high-end personal care products.",
+                safety: ""
+            },
+            diesel: {
+                name: "Amex Schwab Platinum",
+                benefit: "Marinas rarely code as 'Gas'. Take the 1X Amex point over 1% cash back on other cards.",
+                safety: ""
+            },
+            travel: {
+                name: "Amex Schwab Platinum",
+                benefit: "5X Points on flights and $200 Hotel Credit. Access to Centurion Lounges.",
+                safety: "$1,500,000 Travel Accident Insurance—essential for divers/pilots."
             }
         };
 
-        function checkCard(cat) {
-            const data = logic[cat];
-            document.getElementById('result-area').classList.remove('hidden');
-            document.getElementById('result-card').innerText = data.card;
-            document.getElementById('result-benefits').innerHTML = data.benefits.join('<br>');
-            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        function updateCard() {
+            const val = document.getElementById('category').value;
+            const display = document.getElementById('display-area');
+            const cardName = document.getElementById('card-name');
+            const benefitText = document.getElementById('benefit-text');
+            const secondaryBox = document.getElementById('secondary-benefit-box');
+            const secondaryText = document.getElementById('secondary-text');
+            
+            const data = cards[val];
+
+            if (data) {
+                // Show area with animation
+                display.classList.remove('hidden', 'opacity-0', 'translate-y-4');
+                display.classList.add('opacity-100', 'translate-y-0');
+                
+                cardName.innerText = data.name;
+                benefitText.innerText = data.benefit;
+
+                if (data.safety) {
+                    secondaryBox.classList.remove('hidden');
+                    secondaryText.innerText = data.safety;
+                } else {
+                    secondaryBox.classList.add('hidden');
+                }
+            }
         }
     </script>
 </body>
