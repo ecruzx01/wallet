@@ -2,38 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Digital Wallet</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkRpZ2l0YWwgV2FsbGV0IiwKICAic2hvcnRfbmFtZSI6ICJXYWxsZXQiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzAxMDQwOSIsCiAgInRoZW1lX2NvbG9yIjogIiMwMTA0MDkiCn0=">
+    
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkRpZ2l0YWwgV2FsbGV0IiwKICAic2hvcnRfbmFtZSI6ICJXYWxsZXQiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzAxMDQwOSIsCiAgInRoZW1lX2NvbG9yIjogIiMwMTA0MDkiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJpY29uLnBuZyIsCiAgICAgICJzaXplcyI6ICI1MTJ4NTEyIiwKICAgICAgInR5cGUiOiAiaW1hZ2UvcG5nIgogICAgfQogIF0KfQ==">
+    
     <style>
         body {
-            background-image: linear-gradient(to bottom, rgba(1, 4, 9, 0.6), rgba(1, 4, 9, 0.9)), url('wallet.jpg');
+            background-image: linear-gradient(to bottom, rgba(1, 4, 9, 0.4), rgba(1, 4, 9, 0.9)), url('wallet.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             background-color: #010409;
         }
         .glass-panel {
-            background: rgba(22, 27, 34, 0.75);
-            backdrop-filter: blur(12px);
+            background: rgba(22, 27, 34, 0.85);
+            backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .card-face { transition: all 0.3s ease; box-shadow: 0 10px 40px rgba(0,0,0,0.7); }
+        .card-face { 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8); 
+        }
+        /* Remove blue highlight on mobile tap */
+        * { -webkit-tap-highlight-color: transparent; }
     </style>
 </head>
 <body class="text-gray-100 font-sans min-h-screen">
 
     <div class="max-w-md mx-auto p-6 min-h-screen flex flex-col">
-        <header class="text-center mt-4 mb-8">
-            <h1 class="text-3xl font-black text-blue-500 tracking-tighter uppercase italic">Digital Wallet</h1>
-            <p class="text-gray-400 text-[10px] font-bold tracking-[0.3em] mt-1 uppercase">Rewards Optimizer</p>
+        <header class="text-center mt-6 mb-4">
+            <h1 class="text-4xl font-black text-blue-500 tracking-tighter uppercase italic">Digital Wallet</h1>
+            <p class="text-gray-400 text-[10px] font-bold tracking-[0.4em] mt-1 uppercase">Rewards Optimizer</p>
         </header>
 
-        <div class="mb-12">
-            <div class="glass-panel rounded-2xl p-1 shadow-2xl">
-                <select id="category" onchange="updateCard()" class="w-full bg-transparent text-white text-sm font-bold uppercase tracking-wide rounded-xl p-4 outline-none appearance-none cursor-pointer">
-                    <option value="" disabled selected class="bg-[#0d1117]">Select a Category</option>
+        <div class="mb-10 mt-4">
+            <div class="glass-panel rounded-3xl p-1 shadow-2xl">
+                <select id="category" onchange="updateCard()" class="w-full bg-transparent text-white text-sm font-black uppercase tracking-widest rounded-2xl p-5 outline-none appearance-none cursor-pointer">
+                    <option value="" disabled selected class="bg-[#0d1117]">Choose Category</option>
                     
                     <optgroup label="Auto & Transport" class="bg-[#0d1117]">
                         <option value="gas">⛽ Gas & Fuel</option>
@@ -75,32 +82,32 @@
             </div>
         </div>
 
-        <div id="display-area" class="hidden space-y-8 pb-10">
+        <div id="display-area" class="hidden space-y-8 pb-12">
             
-            <div class="animate-in slide-in-from-bottom duration-400">
-                <p class="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-3 ml-1">Primary Selection</p>
-                <div id="card1-bg" class="card-face relative h-44 w-full rounded-2xl p-6 flex flex-col justify-between overflow-hidden border border-white/10">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl" id="card1-icon">💳</div>
+            <div class="animate-in slide-in-from-bottom duration-500">
+                <p class="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-3 ml-2">Primary Selection</p>
+                <div id="card1-bg" class="card-face relative h-48 w-full rounded-3xl p-6 flex flex-col justify-between overflow-hidden border border-white/10">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 text-7xl" id="card1-icon">💳</div>
                     <div>
-                        <h3 id="card1-name" class="text-xl font-black italic tracking-tight uppercase text-white"></h3>
-                        <p id="card1-type" class="text-[9px] font-bold opacity-60 uppercase mt-1 text-white"></p>
+                        <h3 id="card1-name" class="text-2xl font-black italic tracking-tight uppercase text-white"></h3>
+                        <p id="card1-type" class="text-[10px] font-bold opacity-60 uppercase mt-1 text-white"></p>
                     </div>
-                    <div class="bg-black/60 p-3 rounded-xl backdrop-blur-md border border-white/10">
-                        <p id="card1-benefit" class="text-[11px] font-bold leading-tight text-white"></p>
+                    <div class="bg-black/60 p-4 rounded-2xl backdrop-blur-xl border border-white/10">
+                        <p id="card1-benefit" class="text-xs font-bold leading-relaxed text-white"></p>
                     </div>
                 </div>
             </div>
 
-            <div class="animate-in slide-in-from-bottom duration-400 delay-75">
-                <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 ml-1">Secondary (Backup)</p>
-                <div id="card2-bg" class="card-face relative h-40 w-full rounded-2xl p-5 flex flex-col justify-between overflow-hidden border border-gray-800">
+            <div class="animate-in slide-in-from-bottom duration-500 delay-100">
+                <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 ml-2">Secondary (Backup)</p>
+                <div id="card2-bg" class="card-face relative h-40 w-full rounded-3xl p-5 flex flex-col justify-between overflow-hidden border border-gray-800">
                     <div class="absolute top-0 right-0 p-4 opacity-5 text-5xl" id="card2-icon">💳</div>
                     <div>
-                        <h3 id="card2-name" class="text-lg font-bold uppercase text-white"></h3>
-                        <p id="card2-type" class="text-[8px] font-bold opacity-50 uppercase mt-1 text-white"></p>
+                        <h3 id="card2-name" class="text-xl font-bold uppercase text-white"></h3>
+                        <p id="card2-type" class="text-[9px] font-bold opacity-50 uppercase mt-1 text-white"></p>
                     </div>
-                    <div class="bg-black/40 p-2 rounded-lg border border-white/5">
-                        <p id="card2-benefit" class="text-[10px] font-medium text-gray-400"></p>
+                    <div class="bg-black/40 p-3 rounded-xl border border-white/5">
+                        <p id="card2-benefit" class="text-[11px] font-medium text-gray-400 leading-snug"></p>
                     </div>
                 </div>
             </div>
@@ -148,22 +155,21 @@
 
             if (data) {
                 display.classList.remove('hidden');
-                
                 const c1 = cards[data.c1];
                 document.getElementById('card1-name').innerText = c1.name;
                 document.getElementById('card1-type').innerText = c1.type;
                 document.getElementById('card1-benefit').innerText = data.b1;
-                document.getElementById('card1-bg').className = `card-face relative h-44 w-full rounded-2xl p-6 flex flex-col justify-between overflow-hidden bg-gradient-to-br ${c1.color}`;
+                document.getElementById('card1-bg').className = `card-face relative h-48 w-full rounded-3xl p-6 flex flex-col justify-between overflow-hidden bg-gradient-to-br ${c1.color}`;
                 document.getElementById('card1-icon').innerText = c1.icon;
 
                 const c2 = cards[data.c2];
                 document.getElementById('card2-name').innerText = c2.name;
                 document.getElementById('card2-type').innerText = c2.type;
                 document.getElementById('card2-benefit').innerText = data.b2;
-                document.getElementById('card2-bg').className = `card-face relative h-40 w-full rounded-2xl p-5 flex flex-col justify-between overflow-hidden border border-gray-800 bg-gradient-to-br ${c2.color} bg-opacity-10`;
+                document.getElementById('card2-bg').className = `card-face relative h-40 w-full rounded-3xl p-5 flex flex-col justify-between overflow-hidden border border-gray-800 bg-gradient-to-br ${c2.color} bg-opacity-10`;
                 document.getElementById('card2-icon').innerText = c2.icon;
 
-                window.scrollTo({ top: display.offsetTop, behavior: 'smooth' });
+                window.scrollTo({ top: display.offsetTop - 50, behavior: 'smooth' });
             }
         }
     </script>
