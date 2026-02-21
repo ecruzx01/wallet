@@ -6,185 +6,157 @@
     <title>Daily Wallet</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkRhaWx5IFdhbGxldCIsCiAgInNob3J0X25hbWUiOiAiRGFpbHkiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzBkMTExNyIsCiAgInRoZW1lX2NvbG9yIjogIiMwZDExMTciCn0=">
+    <style>
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); }
+        .card-shadow { box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+    </style>
 </head>
-<body class="bg-[#0d1117] text-gray-100 font-sans min-h-screen p-6">
+<body class="bg-[#010409] text-gray-100 font-sans min-h-screen pb-12">
 
-    <div class="max-w-md mx-auto">
+    <div class="max-w-md mx-auto p-6">
         <header class="text-center mb-8">
-            <h1 class="text-3xl font-extrabold text-blue-400 tracking-tight">Daily Wallet</h1>
-            <p class="text-gray-400 mt-1">Edwin's Daily Spend Selector</p>
+            <h1 class="text-3xl font-black text-blue-500 tracking-tighter uppercase italic">Daily Wallet</h1>
+            <p class="text-gray-500 text-xs font-bold tracking-widest mt-1">EDWIN'S ALL-PURPOSE SELECTOR</p>
         </header>
 
-        <div class="mb-6">
-            <label for="category" class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Select Spending Category</label>
-            <select id="category" onchange="updateCard()" class="w-full bg-[#161b22] border border-gray-700 text-white text-base rounded-xl p-4 focus:ring-2 focus:ring-blue-500 outline-none appearance-none cursor-pointer">
-                <option value="" disabled selected>Choose a category...</option>
-                
-                <optgroup label="Auto & Transport">
-                    <option value="gas">⛽ Gas & Fuel (Auto)</option>
-                    <option value="rideshare">🚗 Rideshare (Uber/Taxi)</option>
-                    <option value="service">🔧 Service & Parts</option>
-                </optgroup>
+        <div class="mb-8">
+            <label for="category" class="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-3 ml-1">Spending Category</label>
+            <div class="relative">
+                <select id="category" onchange="updateCard()" class="w-full bg-[#161b22] border border-gray-800 text-white text-sm rounded-2xl p-4 focus:ring-2 focus:ring-blue-500 outline-none appearance-none cursor-pointer shadow-lg">
+                    <option value="" disabled selected>Tap to Select Category...</option>
+                    
+                    <optgroup label="Auto & Transport">
+                        <option value="gas">⛽ Gas & Fuel</option>
+                        <option value="rideshare">🚗 Rideshare (Uber/Taxi)</option>
+                        <option value="service">🔧 Service & Parts</option>
+                        <option value="insurance">🛡️ Car Insurance</option>
+                    </optgroup>
 
-                <optgroup label="Dining & Drinks">
-                    <option value="dining">🍽️ Restaurants & Dining</option>
-                    <option value="fastfood">🍔 Fast Food & Delivery</option>
-                    <option value="coffee">☕ Coffee Shops</option>
-                </optgroup>
+                    <optgroup label="Dining & Drinks">
+                        <option value="dining">🍽️ Restaurants & Dining</option>
+                        <option value="fastfood">🍔 Fast Food & Delivery</option>
+                        <option value="bars">🍸 Bars & Lounges</option>
+                        <option value="coffee">☕ Coffee Shops</option>
+                    </optgroup>
 
-                <optgroup label="Groceries & Shopping">
-                    <option value="costco">🛒 Costco Purchases</option>
-                    <option value="groceries">🍏 Groceries (Anywhere else)</option>
-                    <option value="electronics">💻 Electronics & Tech</option>
-                    <option value="clothing">👕 Clothing & Shopping</option>
-                </optgroup>
+                    <optgroup label="Essential & Shopping">
+                        <option value="costco">🛒 Costco Purchases</option>
+                        <option value="groceries">🍏 Groceries (Non-Costco)</option>
+                        <option value="electronics">💻 Electronics (Nikon/PC)</option>
+                        <option value="hobbies">🔫 Hobbies (Guns/Diving)</option>
+                        <option value="clothing">👕 Clothing & Shopping</option>
+                    </optgroup>
 
-                <optgroup label="Health & Personal Care">
-                    <option value="healthcare">🏥 Health (Doctor/Dentist)</option>
-                    <option value="pharmacy">💊 Pharmacy & Vitamins</option>
-                    <option value="personalcare">💇 Personal Care (Hair/Spa)</option>
-                    <option value="fitness">💪 Fitness & Gym</option>
-                </optgroup>
+                    <optgroup label="Health & Personal Care">
+                        <option value="healthcare">🏥 Health (Doctor/Dentist)</option>
+                        <option value="pharmacy">💊 Pharmacy & Vitamins</option>
+                        <option value="personalcare">💇 Personal Care (Hair/Spa)</option>
+                        <option value="fitness">💪 Fitness & Gym</option>
+                    </optgroup>
 
-                <optgroup label="Home & Utilities">
-                    <option value="repairs">🏠 Repairs & Maintenance</option>
-                    <option value="utilities">⚡ Utilities (Water/Elec/Internet)</option>
-                    <option value="media">📺 Subscriptions (Streaming/Music)</option>
-                </optgroup>
-            </select>
+                    <optgroup label="Home & Kids">
+                        <option value="repairs">🏠 Home Repairs/Contractors</option>
+                        <option value="kids">🧒 Kids & Family Needs</option>
+                        <option value="pets">🐕 Pet Food & Veterinary</option>
+                        <option value="media">📺 Subscriptions (Streaming)</option>
+                        <option value="utilities">⚡ Utilities & Internet</option>
+                    </optgroup>
+                </select>
+            </div>
         </div>
 
-        <div id="display-area" class="hidden opacity-0 translate-y-4 transition-all duration-500 ease-out">
-            <div class="bg-gradient-to-br from-[#1e293b] to-[#0f172a] p-6 rounded-2xl border border-blue-500/30 shadow-2xl">
-                <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-400 mb-2">Recommended Card</p>
-                <h2 id="card-name" class="text-2xl font-black mb-4 tracking-tight"></h2>
-                
-                <div class="space-y-4 border-t border-gray-700 pt-4">
-                    <div>
-                        <p class="text-[10px] font-bold uppercase text-gray-500 mb-1">Key Reward</p>
-                        <p id="benefit-text" class="text-sm text-gray-300 leading-relaxed"></p>
+        <div id="display-area" class="hidden space-y-6">
+            
+            <div class="animate-in slide-in-from-bottom duration-500">
+                <p class="text-[10px] font-bold text-blue-500 uppercase tracking-widest mb-3 ml-1">Primary Choice</p>
+                <div class="relative h-48 w-full rounded-2xl p-6 flex flex-col justify-between overflow-hidden card-shadow" id="card1-bg">
+                    <div class="absolute top-0 right-0 p-4 opacity-20 text-6xl" id="card1-icon">💳</div>
+                    <div class="z-10">
+                        <h3 id="card1-name" class="text-xl font-black italic tracking-tight"></h3>
+                        <p class="text-[10px] font-bold opacity-70 uppercase tracking-widest mt-1" id="card1-type"></p>
                     </div>
-                    <div id="safety-box" class="hidden">
-                        <p class="text-[10px] font-bold uppercase text-gray-500 mb-1">Protection Info</p>
-                        <p id="safety-text" class="text-xs text-gray-400 italic"></p>
+                    <div class="z-10 bg-black/30 p-3 rounded-xl backdrop-blur-md">
+                        <p id="card1-benefit" class="text-xs font-semibold leading-snug"></p>
                     </div>
                 </div>
             </div>
+
+            <div class="animate-in slide-in-from-bottom delay-200 duration-500">
+                <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 ml-1">Secondary Choice (Backup)</p>
+                <div class="relative h-44 w-full rounded-2xl p-5 flex flex-col justify-between overflow-hidden border border-gray-800" id="card2-bg">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 text-5xl" id="card2-icon">💳</div>
+                    <div>
+                        <h3 id="card2-name" class="text-lg font-bold"></h3>
+                        <p class="text-[9px] font-bold opacity-60 uppercase mt-1" id="card2-type"></p>
+                    </div>
+                    <div class="bg-black/20 p-2 rounded-lg">
+                        <p id="card2-benefit" class="text-[11px] font-medium text-gray-400"></p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
     <script>
-        const cards = {
-            gas: {
-                name: "Costco Anywhere Business",
-                benefit: "4% Cash Back on eligible gas and EV charging globally (up to $7,000 per year).",
-                safety: ""
-            },
-            rideshare: {
-                name: "Amex Schwab Platinum",
-                benefit: "Utilize the $15 monthly Uber Cash ($20 in Dec). Make sure to set this card as the payment method.",
-                safety: "Use Amazon Prime Rewards (2% back) if Amex credits are exhausted."
-            },
-            service: {
-                name: "Costco Anywhere Business",
-                benefit: "3% Cash Back on car rentals. For parts/service, this typically earns the base 1% back.",
-                safety: ""
-            },
-            dining: {
-                name: "Costco Anywhere Business",
-                benefit: "3% Cash Back on restaurants and bars worldwide.",
-                safety: "Includes cafes and lounges."
-            },
-            fastfood: {
-                name: "Costco Anywhere Business",
-                benefit: "3% Cash Back on fast food and delivery restaurants.",
-                safety: ""
-            },
-            coffee: {
-                name: "Costco Anywhere Business",
-                benefit: "3% Cash Back on coffee shop purchases.",
-                safety: ""
-            },
-            costco: {
-                name: "Costco Anywhere Business",
-                benefit: "2% Cash Back on all purchases at Costco and Costco.com[cite: 3594].",
-                safety: ""
-            },
-            groceries: {
-                name: "Amazon Prime Rewards",
-                benefit: "5% Back at Whole Foods Market and Amazon Fresh.",
-                safety: ""
-            },
-            electronics: {
-                name: "Amazon Prime Rewards",
-                benefit: "5% Back on Amazon.com.",
-                safety: "Extended Warranty doubles manufacturer written warranty up to 1 year on eligible items."
-            },
-            clothing: {
-                name: "Amex Schwab Platinum",
-                benefit: "Use for the $100 annual Saks Fifth Avenue statement credit ($50 semi-annually)[cite: 4836].",
-                safety: "Use Amazon Visa for 1% elsewhere."
-            },
-            healthcare: {
-                name: "Amex Schwab Platinum",
-                benefit: "Earn 1X Membership Rewards point per dollar spent[cite: 3678].",
-                safety: "Provides premium support for large medical billing disputes."
-            },
-            pharmacy: {
-                name: "Amex Schwab Platinum",
-                benefit: "Earn 1X Membership Rewards point per dollar spent[cite: 3678].",
-                safety: ""
-            },
-            personalcare: {
-                name: "Amex Schwab Platinum",
-                benefit: "Best for high-end spa/salon services to reach your annual spend requirements for bonuses.",
-                safety: ""
-            },
-            fitness: {
-                name: "Amex Schwab Platinum",
-                benefit: "Up to $300 annual statement credit for Equinox memberships or Equinox+[cite: 3951].",
-                safety: ""
-            },
-            repairs: {
-                name: "PREMIA Business Rewards Max",
-                benefit: "Use for commercial/home contractor payments. View all activity through the Credit Card Manager[cite: 2541].",
-                safety: "Offers protection against unauthorized charges[cite: 2551]."
-            },
-            utilities: {
-                name: "Amex Schwab Platinum",
-                benefit: "Standard 1X points. Best for high-value points collection on recurring monthly bills[cite: 3678].",
-                safety: ""
-            },
-            media: {
-                name: "Amex Schwab Platinum",
-                benefit: "Up to $25 monthly Digital Entertainment Credit ($300/year) for Disney+, Hulu, Peacock, etc.",
-                safety: "Infinite PREMIA also offers an $8 monthly streaming credit."
-            }
+        const cardLib = {
+            amex: { name: "Amex Schwab Platinum", type: "American Express", color: "from-gray-300 to-gray-500 text-black", icon: "🏛️" },
+            costco: { name: "Costco Anywhere", type: "Visa Business", color: "from-blue-600 to-blue-900 text-white", icon: "🛒" },
+            amazon: { name: "Amazon Prime Rewards", type: "Visa Signature", color: "from-gray-800 to-black text-white", icon: "📦" },
+            infinite: { name: "PREMIA Infinite", type: "Visa Infinite", color: "from-indigo-900 to-black text-white", icon: "💎" },
+            max: { name: "PREMIA Business Max", type: "Visa Business", color: "from-amber-600 to-amber-900 text-white", icon: "💼" }
+        };
+
+        const logic = {
+            gas: { c1: 'costco', b1: "4% Cash Back on Gas/EV (up to $7k/yr). [cite: 1057]", c2: 'amazon', b2: "2% Back if station codes as 'Gas'." },
+            rideshare: { c1: 'amex', b1: "Use $15/mo Uber Credit ($20 in Dec). [cite: 1317]", c2: 'amazon', b2: "2% Back on local transit/rideshare." },
+            service: { c1: 'costco', b1: "3% Back on Car Rentals. 1% on Parts/Service. [cite: 1060]", c2: 'max', b2: "Commercial Card Manager to track service costs. " },
+            insurance: { c1: 'infinite', b1: "Visa Infinite primary rental coverage (up to 31 days). [cite: 542]", c2: 'max', b2: "Primary rental coverage (up to 30 days). [cite: 31]" },
+            dining: { c1: 'costco', b1: "3% Back on Restaurants, Bars, and Lounges. [cite: 1060]", c2: 'amazon', b2: "2% Back on Restaurants." },
+            fastfood: { c1: 'costco', b1: "3% Back on Fast Food and Delivery. [cite: 1060]", c2: 'amazon', b2: "2% Back on Restaurants/Dining." },
+            bars: { c1: 'costco', b1: "3% Back on Bars and Lounges worldwide. [cite: 1060]", c2: 'amex', b2: "1X Points - High limit for large group tabs." },
+            coffee: { c1: 'costco', b1: "3% Back on Coffee Shops. [cite: 1060]", c2: 'amazon', b2: "2% Back on Dining category." },
+            costco: { c1: 'costco', b1: "2% Back on all Costco & Costco.com orders. [cite: 1063]", c2: 'infinite', b1: "1X Points (Visa accepted at warehouse)." },
+            groceries: { c1: 'amazon', b1: "5% Back at Whole Foods & Amazon Fresh.", c2: 'costco', b2: "1% Back at standard supermarkets. [cite: 1064]" },
+            electronics: { c1: 'amazon', b1: "5% Back + Extended Warranty (doubles coverage). ", c2: 'infinite', b2: "$10k Purchase Protection for 180 days. [cite: 877]" },
+            hobbies: { c1: 'amazon', b1: "5% Back on gear/tech via Amazon.", c2: 'infinite', b2: "$3,000 Baggage Loss covers diving gear. [cite: 717]" },
+            clothing: { c1: 'amex', b1: "Use $100 Saks Fifth Ave Credit ($50 semi-annually). ", c2: 'infinite', b2: "$10k Purchase Protection on high-end luxury." },
+            healthcare: { c1: 'amex', b1: "Best for medical due to dispute protection/service.", c2: 'infinite', b2: "1X Points - Visa accepted at all PR clinics." },
+            pharmacy: { c1: 'infinite', b1: "1X Points - Best for local PR pharmacies.", c2: 'amazon', b2: "1% Back - Easy tracking in Amazon app." },
+            personalcare: { c1: 'amex', b1: "Apply Saks credit for high-end skincare/products.", c2: 'infinite', b2: "Visa Concierge for spa/salon bookings. [cite: 464]" },
+            fitness: { c1: 'amex', b1: "$300 Equinox Credit ($25/mo Equinox+). ", c2: 'infinite', b2: "1X Points - Widely accepted at PR gyms." },
+            repairs: { c1: 'max', b1: "Commercial Credit Manager to track contractors. ", c2: 'infinite', b2: "$10k Purchase Protection on new fixtures/items. [cite: 877]" },
+            kids: { c1: 'costco', b1: "2% Back on bulk household supplies. [cite: 1063]", c2: 'amazon', b2: "5% Back on toys/tech via Amazon." },
+            pets: { c1: 'costco', b1: "2% Back on food/supplies at Costco warehouse.", c2: 'amazon', b2: "5% Back on recurring Pet supplies on Amazon." },
+            media: { c1: 'amex', b1: "$25/mo Digital Entertainment Credit ($300/yr). [cite: 1373]", c2: 'infinite', b2: "$8/mo Streaming Credit (if spend >$30)." },
+            utilities: { c1: 'infinite', b1: "1X Points - Reliable for recurring PR utility bills.", c2: 'max', b2: "Track business/property utility costs easily." }
         };
 
         function updateCard() {
             const val = document.getElementById('category').value;
             const display = document.getElementById('display-area');
-            const cardName = document.getElementById('card-name');
-            const benefitText = document.getElementById('benefit-text');
-            const safetyBox = document.getElementById('safety-box');
-            const safetyText = document.getElementById('safety-text');
-            
-            const data = cards[val];
+            const data = logic[val];
 
             if (data) {
-                display.classList.remove('hidden', 'opacity-0', 'translate-y-4');
-                display.classList.add('opacity-100', 'translate-y-0');
+                display.classList.remove('hidden');
                 
-                cardName.innerText = data.name;
-                benefitText.innerText = data.benefit;
+                // Set Choice 1
+                const c1 = cardLib[data.c1];
+                document.getElementById('card1-name').innerText = c1.name;
+                document.getElementById('card1-type').innerText = c1.type;
+                document.getElementById('card1-benefit').innerText = data.b1;
+                document.getElementById('card1-bg').className = `relative h-48 w-full rounded-2xl p-6 flex flex-col justify-between overflow-hidden card-shadow bg-gradient-to-br ${c1.color}`;
+                document.getElementById('card1-icon').innerText = c1.icon;
 
-                if (data.safety) {
-                    safetyBox.classList.remove('hidden');
-                    safetyText.innerText = data.safety;
-                } else {
-                    safetyBox.classList.add('hidden');
-                }
+                // Set Choice 2
+                const c2 = cardLib[data.c2];
+                document.getElementById('card2-name').innerText = c2.name;
+                document.getElementById('card2-type').innerText = c2.type;
+                document.getElementById('card2-benefit').innerText = data.b2;
+                document.getElementById('card2-bg').className = `relative h-44 w-full rounded-2xl p-5 flex flex-col justify-between overflow-hidden border border-gray-800 bg-gradient-to-br ${c2.color} bg-opacity-10`;
+                document.getElementById('card2-icon').innerText = c2.icon;
+
+                window.scrollTo({ top: display.offsetTop, behavior: 'smooth' });
             }
         }
     </script>
