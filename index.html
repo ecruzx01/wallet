@@ -9,64 +9,70 @@
     <style>
         .card-face { transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         body { background-color: #010409; }
+        /* Custom styling for the selector overlay */
+        .glass-overlay {
+            background: rgba(13, 17, 23, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
     </style>
 </head>
 <body class="text-gray-100 font-sans min-h-screen pb-12">
 
     <div class="max-w-md mx-auto p-6">
-        <header class="text-center mt-4 mb-6">
+        <header class="text-center mt-4 mb-2">
             <h1 class="text-3xl font-black text-blue-500 tracking-tighter uppercase italic">Edwin's Wallet</h1>
-            <p class="text-gray-500 text-[10px] font-bold tracking-[0.3em] mt-1 mb-8 uppercase">Rewards Optimizer</p>
-            
-            <div class="relative group">
-                <img src="wallet.jpg" alt="Wallet" class="w-full rounded-3xl shadow-2xl border border-white/10 mb-8 transform group-hover:scale-[1.02] transition-transform duration-500">
-                <div class="absolute inset-0 rounded-3xl bg-gradient-to-t from-[#010409] via-transparent to-transparent opacity-40"></div>
-            </div>
+            <p class="text-gray-500 text-[10px] font-bold tracking-[0.3em] mt-1 mb-6 uppercase">Rewards Optimizer</p>
         </header>
 
-        <div class="mb-10">
-            <label for="category" class="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-2 ml-1">Spending Category</label>
-            <div class="relative">
-                <select id="category" onchange="updateCard()" class="w-full bg-[#161b22] border border-gray-800 text-white text-base rounded-xl p-4 focus:ring-2 focus:ring-blue-500 outline-none appearance-none cursor-pointer shadow-xl">
-                    <option value="" disabled selected>Tap to choose category...</option>
-                    
-                    <optgroup label="Auto & Transport">
-                        <option value="gas">⛽ Gas & Fuel (Auto)</option>
-                        <option value="rideshare">🚗 Rideshare (Uber/Taxi)</option>
-                        <option value="service">🔧 Service & Parts</option>
-                        <option value="insurance">🛡️ Car Insurance</option>
-                    </optgroup>
+        <div class="relative mb-10 overflow-hidden rounded-3xl shadow-2xl border border-white/10 group">
+            <img src="wallet.jpg" alt="Wallet" class="w-full transform group-hover:scale-[1.02] transition-transform duration-700">
+            
+            <div class="absolute inset-0 bg-gradient-to-t from-[#010409] via-transparent to-transparent opacity-60"></div>
 
-                    <optgroup label="Dining & Drinks">
-                        <option value="dining">🍽️ Restaurants & Dining</option>
-                        <option value="fastfood">🍔 Fast Food & Delivery</option>
-                        <option value="coffee">☕ Coffee Shops</option>
-                        <option value="bars">🍸 Bars & Lounges</option>
-                    </optgroup>
+            <div class="absolute bottom-6 left-6 right-6">
+                <div class="glass-overlay p-1 rounded-2xl shadow-2xl">
+                    <select id="category" onchange="updateCard()" class="w-full bg-transparent text-white text-sm font-bold uppercase tracking-wide rounded-xl p-4 outline-none appearance-none cursor-pointer">
+                        <option value="" disabled selected class="bg-[#0d1117]">Tap Wallet to Choose...</option>
+                        
+                        <optgroup label="Auto & Transport" class="bg-[#0d1117]">
+                            <option value="gas">⛽ Gas & Fuel (Auto)</option>
+                            <option value="rideshare">🚗 Rideshare (Uber/Taxi)</option>
+                            <option value="service">🔧 Service & Parts</option>
+                            <option value="insurance">🛡️ Car Insurance</option>
+                        </optgroup>
 
-                    <optgroup label="Groceries & Shopping">
-                        <option value="costco">🛒 Costco Warehouse</option>
-                        <option value="groceries">🍏 Groceries (Non-Costco)</option>
-                        <option value="electronics">💻 Electronics & Tech</option>
-                        <option value="hobbies">🔫 Hobbies (Guns/Diving)</option>
-                        <option value="clothing">👕 Clothing & Saks</option>
-                    </optgroup>
+                        <optgroup label="Dining & Drinks" class="bg-[#0d1117]">
+                            <option value="dining">🍽️ Restaurants & Dining</option>
+                            <option value="fastfood">🍔 Fast Food & Delivery</option>
+                            <option value="coffee">☕ Coffee Shops</option>
+                            <option value="bars">🍸 Bars & Lounges</option>
+                        </optgroup>
 
-                    <optgroup label="Health & Personal">
-                        <option value="healthcare">🏥 Health (Doctor/Dentist)</option>
-                        <option value="fitness">💪 Fitness & Gym</option>
-                        <option value="personal">💇 Personal Care</option>
-                        <option value="pharmacy">💊 Pharmacy & Vitamins</option>
-                    </optgroup>
+                        <optgroup label="Groceries & Shopping" class="bg-[#0d1117]">
+                            <option value="costco">🛒 Costco Warehouse</option>
+                            <option value="groceries">🍏 Groceries (Non-Costco)</option>
+                            <option value="electronics">💻 Electronics & Tech</option>
+                            <option value="hobbies">🔫 Hobbies (Guns/Diving)</option>
+                            <option value="clothing">👕 Clothing & Saks</option>
+                        </optgroup>
 
-                    <optgroup label="Home & Others">
-                        <option value="maintenance">🏠 Home Maintenance</option>
-                        <option value="kids">🧒 Kids & Family Needs</option>
-                        <option value="pets">🐕 Pets & Veterinary</option>
-                        <option value="media">📺 Streaming & Subscriptions</option>
-                        <option value="utilities">⚡ Utilities & Internet</option>
-                    </optgroup>
-                </select>
+                        <optgroup label="Health & Personal" class="bg-[#0d1117]">
+                            <option value="healthcare">🏥 Health (Doctor/Dentist)</option>
+                            <option value="fitness">💪 Fitness & Gym</option>
+                            <option value="personal">💇 Personal Care</option>
+                            <option value="pharmacy">💊 Pharmacy & Vitamins</option>
+                        </optgroup>
+
+                        <optgroup label="Home & Others" class="bg-[#0d1117]">
+                            <option value="maintenance">🏠 Home Maintenance</option>
+                            <option value="kids">🧒 Kids & Family Needs</option>
+                            <option value="pets">🐕 Pets & Veterinary</option>
+                            <option value="media">📺 Streaming & Subscriptions</option>
+                            <option value="utilities">⚡ Utilities & Internet</option>
+                        </optgroup>
+                    </select>
+                </div>
             </div>
         </div>
 
@@ -77,11 +83,11 @@
                 <div id="card1-bg" class="card-face relative h-44 w-full rounded-2xl p-6 flex flex-col justify-between overflow-hidden border border-white/5">
                     <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl" id="card1-icon">💳</div>
                     <div>
-                        <h3 id="card1-name" class="text-xl font-black italic tracking-tight uppercase"></h3>
-                        <p id="card1-type" class="text-[9px] font-bold opacity-60 uppercase mt-1"></p>
+                        <h3 id="card1-name" class="text-xl font-black italic tracking-tight uppercase text-white"></h3>
+                        <p id="card1-type" class="text-[9px] font-bold opacity-60 uppercase mt-1 text-white"></p>
                     </div>
-                    <div class="bg-black/40 p-3 rounded-xl backdrop-blur-md border border-white/10">
-                        <p id="card1-benefit" class="text-[11px] font-bold leading-tight"></p>
+                    <div class="bg-black/50 p-3 rounded-xl backdrop-blur-md border border-white/10">
+                        <p id="card1-benefit" class="text-[11px] font-bold leading-tight text-white"></p>
                     </div>
                 </div>
             </div>
@@ -91,8 +97,8 @@
                 <div id="card2-bg" class="card-face relative h-40 w-full rounded-2xl p-5 flex flex-col justify-between overflow-hidden border border-gray-800">
                     <div class="absolute top-0 right-0 p-4 opacity-5 text-5xl" id="card2-icon">💳</div>
                     <div>
-                        <h3 id="card2-name" class="text-lg font-bold uppercase"></h3>
-                        <p id="card2-type" class="text-[8px] font-bold opacity-50 uppercase mt-1"></p>
+                        <h3 id="card2-name" class="text-lg font-bold uppercase text-white"></h3>
+                        <p id="card2-type" class="text-[8px] font-bold opacity-50 uppercase mt-1 text-white"></p>
                     </div>
                     <div class="bg-black/30 p-2 rounded-lg border border-white/5">
                         <p id="card2-benefit" class="text-[10px] font-medium text-gray-400"></p>
@@ -105,22 +111,22 @@
 
     <script>
         const cards = {
-            amex: { name: "Amex Schwab Platinum", type: "American Express", color: "from-gray-300 to-gray-500 text-black", icon: "🏛️" },
-            costco: { name: "Costco Anywhere Biz", type: "Visa Business", color: "from-blue-600 to-blue-900 text-white", icon: "🛒" },
-            amazon: { name: "Amazon Prime Rewards", type: "Visa Signature", color: "from-gray-800 to-black text-white", icon: "📦" },
-            infinite: { name: "PREMIA Infinite", type: "Visa Infinite", color: "from-indigo-900 to-black text-white", icon: "💎" }
+            amex: { name: "Amex Schwab Platinum", type: "American Express", color: "from-gray-300 to-gray-500", icon: "🏛️" },
+            costco: { name: "Costco Anywhere Biz", type: "Visa Business", color: "from-blue-600 to-blue-900", icon: "🛒" },
+            amazon: { name: "Amazon Prime Rewards", type: "Visa Signature", color: "from-gray-800 to-black", icon: "📦" },
+            infinite: { name: "PREMIA Infinite", type: "Visa Infinite", color: "from-indigo-900 to-black", icon: "💎" }
         };
 
         const logic = {
-            gas: { c1: 'costco', b1: "Earn 4% back on gas/EV (up to $7k/yr) and 5% back specifically at Costco stations.", c2: 'infinite', b2: "Standard 1 Point per $1 spent." },
+            gas: { c1: 'costco', b1: "Earn 4% back on gas and EV charging globally for the first $7,000 per year, and 5% specifically at Costco locations.", c2: 'infinite', b2: "Standard 1 Point per $1 spent." },
             rideshare: { c1: 'amex', b1: "Apply your $15 monthly Uber Cash credit ($20 in December) for rides or Uber Eats.", c2: 'amazon', b2: "Earn 2% cash back on local transit and rideshare." },
             service: { c1: 'costco', b1: "Earn 3% back on car rentals. Parts and maintenance earn the base 1% cash back.", c2: 'infinite', b2: "Standard 1 Point per $1 spent." },
             insurance: { c1: 'infinite', b1: "Utilize your primary car rental coverage for periods up to 31 days.", c2: 'costco', b2: "Provides standard Visa purchase protections." },
             dining: { c1: 'costco', b1: "Earn 3% cash back on restaurants, cafes, bars, and lounges worldwide.", c2: 'amazon', b2: "Earn 2% cash back on the dining category." },
             fastfood: { c1: 'costco', b1: "Earn 3% back (includes fast food and delivery).", c2: 'amazon', b2: "Earn 2% back on the dining category." },
             coffee: { c1: 'costco', b1: "Earn 3% cash back on coffee shop purchases.", c2: 'amazon', b2: "Earn 2% back on the dining category." },
-            bars: { c1: 'costco', b1: "Earn 3% cash back on bar and lounge tabs worldwide.", c2: 'amex', b2: "Earn 1X points - useful for high group tabs." },
-            costco: { c1: 'costco', b1: "Earn 2% cash back on all Costco and Costco.com purchases.", c2: 'infinite', b2: "Visa is accepted at the warehouse. Earn 1 Point per $1." },
+            bars: { c1: 'costco', b1: "Earn 3% cash back on bar and lounge tabs worldwide.", c2: 'amex', b2: "Earn 1X points—useful for high group tabs." },
+            costco: { c1: 'costco', b1: "Earn 2% cash back on all purchases from Costco and Costco.com.", c2: 'infinite', b2: "Visa is accepted at the warehouse. Earn 1 Point per $1." },
             groceries: { c1: 'amazon', b1: "Earn 5% cash back at Whole Foods Market and Amazon Fresh.", c2: 'costco', b2: "Earn 1% cash back at standard supermarkets." },
             electronics: { c1: 'amazon', b1: "Earn 5% back on Amazon.com and receive an Extended Warranty that adds a year to the manufacturer's coverage.", c2: 'infinite', b2: "Provides high-limit Purchase Protection up to $10,000 per event." },
             hobbies: { c1: 'amazon', b1: "Earn 5% back on tech and gear. Purchase Protection covers 120 days.", c2: 'infinite', b2: "Includes $3,000 baggage loss for diving or photography gear." },
@@ -128,7 +134,7 @@
             healthcare: { c1: 'amex', b1: "Best for medical due to superior customer service and dispute support.", c2: 'infinite', b2: "Widely accepted in Puerto Rico. Earn 1 Point per $1." },
             fitness: { c1: 'amex', b1: "Apply your $300 annual Equinox membership credit ($25 monthly).", c2: 'infinite', b2: "Standard 1 Point per $1 spent." },
             personal: { c1: 'amex', b1: "Apply Saks credits for high-end personal care. Use Concierge for bookings.", c2: 'infinite', b2: "Visa Concierge for spa and salon arrangements." },
-            pharmacy: { c1: 'infinite', b1: "Widely accepted in Puerto Rico. Earn 1 Point per $1.", c2: 'amazon', b2: "Earn 1% cash back - tracked easily in-app." },
+            pharmacy: { c1: 'infinite', b1: "Widely accepted in Puerto Rico. Earn 1 Point per $1.", c2: 'amazon', b2: "Earn 1% cash back—tracked easily in-app." },
             maintenance: { c1: 'infinite', b1: "Best for large purchases due to strong Purchase Protection.", c2: 'costco', b2: "Earn 1% cash back on maintenance items." },
             kids: { c1: 'costco', b1: "Earn 2% back on bulk family supplies and household items.", c2: 'amazon', b2: "Earn 5% back on Amazon purchases." },
             pets: { c1: 'costco', b1: "Earn 2% back on bulk food and vet supplies at Costco.", c2: 'amazon', b2: "Earn 5% back on recurring Amazon pet deliveries." },
@@ -143,6 +149,7 @@
 
             if (data) {
                 display.classList.remove('hidden');
+                
                 const c1 = cards[data.c1];
                 document.getElementById('card1-name').innerText = c1.name;
                 document.getElementById('card1-type').innerText = c1.type;
