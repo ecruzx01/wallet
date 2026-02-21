@@ -8,40 +8,19 @@
     <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkVkd2luJ3MgV2FsbGV0IiwKICAic2hvcnRfbmFtZSI6ICJXYWxsZXQiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzAxMDQwOSIsCiAgInRoZW1lX2NvbG9yIjogIiMwMTA0MDkiCn0=">
     <style>
         .card-face { transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="bg-[#010409] text-gray-100 font-sans min-h-screen pb-12">
 
-    <div class="max-w-md mx-auto p-4">
-        <header class="text-center mt-4 mb-6">
-            <h1 class="text-2xl font-black text-blue-500 tracking-tighter uppercase italic">Edwin's Wallet</h1>
-            <p class="text-gray-500 text-[10px] font-bold tracking-[0.3em]">DAILY REWARDS OPTIMIZER</p>
+    <div class="max-w-md mx-auto p-6">
+        <header class="text-center mt-4 mb-10">
+            <h1 class="text-3xl font-black text-blue-500 tracking-tighter uppercase italic">Edwin's Wallet</h1>
+            <p class="text-gray-500 text-[10px] font-bold tracking-[0.3em] mt-1">DAILY REWARDS OPTIMIZER</p>
         </header>
 
-        <div class="flex gap-3 overflow-x-auto pb-8 no-scrollbar">
-            <div class="min-w-[140px] h-24 rounded-xl bg-gradient-to-br from-gray-300 to-gray-500 flex flex-col justify-between p-3 border border-white/20 shadow-lg">
-                <span class="text-[10px] font-black text-black italic">AMEX</span>
-                <span class="text-[8px] font-black text-black uppercase">Schwab Platinum</span>
-            </div>
-            <div class="min-w-[140px] h-24 rounded-xl bg-gradient-to-br from-blue-600 to-blue-900 flex flex-col justify-between p-3 border border-white/20 shadow-lg text-white">
-                <span class="text-[10px] font-black italic">VISA</span>
-                <span class="text-[8px] font-black uppercase">Costco Business</span>
-            </div>
-            <div class="min-w-[140px] h-24 rounded-xl bg-gradient-to-br from-indigo-900 to-black flex flex-col justify-between p-3 border border-white/20 shadow-lg text-white">
-                <span class="text-[10px] font-black italic text-indigo-400">VISA</span>
-                <span class="text-[8px] font-black uppercase">PREMIA Infinite</span>
-            </div>
-            <div class="min-w-[140px] h-24 rounded-xl bg-gradient-to-br from-gray-800 to-black flex flex-col justify-between p-3 border border-white/20 shadow-lg text-white">
-                <span class="text-[10px] font-black italic text-blue-400">VISA</span>
-                <span class="text-[8px] font-black uppercase">Amazon Prime</span>
-            </div>
-        </div>
-
-        <div class="mb-8">
+        <div class="mb-10">
             <label for="category" class="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-2 ml-1">Spending Category</label>
-            <select id="category" onchange="updateCard()" class="w-full bg-[#161b22] border border-gray-800 text-white text-base rounded-xl p-4 focus:ring-2 focus:ring-blue-500 outline-none appearance-none cursor-pointer">
+            <select id="category" onchange="updateCard()" class="w-full bg-[#161b22] border border-gray-800 text-white text-base rounded-xl p-4 focus:ring-2 focus:ring-blue-500 outline-none appearance-none cursor-pointer shadow-xl">
                 <option value="" disabled selected>Tap to choose category...</option>
                 
                 <optgroup label="Auto & Transport">
@@ -78,9 +57,9 @@
             </select>
         </div>
 
-        <div id="display-area" class="hidden space-y-6">
+        <div id="display-area" class="hidden space-y-8">
             
-            <div class="animate-in slide-in-from-bottom duration-300">
+            <div class="animate-in slide-in-from-bottom duration-400">
                 <p class="text-[10px] font-bold text-blue-500 uppercase tracking-widest mb-3 ml-1">Primary Selection</p>
                 <div id="card1-bg" class="card-face relative h-44 w-full rounded-2xl p-6 flex flex-col justify-between overflow-hidden">
                     <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl" id="card1-icon">💳</div>
@@ -94,7 +73,7 @@
                 </div>
             </div>
 
-            <div class="animate-in slide-in-from-bottom duration-300 delay-75">
+            <div class="animate-in slide-in-from-bottom duration-400 delay-75">
                 <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 ml-1">Secondary (Backup)</p>
                 <div id="card2-bg" class="card-face relative h-40 w-full rounded-2xl p-5 flex flex-col justify-between overflow-hidden border border-gray-800">
                     <div class="absolute top-0 right-0 p-4 opacity-5 text-5xl" id="card2-icon">💳</div>
