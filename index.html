@@ -1,202 +1,113 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#001f3f">
-    <link rel="manifest" href="manifest.json">
-    <title>Riviera 53 - Fleet Command</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expedition Wallet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="manifest" href="data:application/json;base64,ewogICJnameIjogIkV4cGVkaXRpb24gV2FsbGV0IiwKICAic2hvcnRfbmFtZSI6ICJXYWxsZXQiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzExMTgyNyIsCiAgInRoZW1lX2NvbG9yIjogIiMxMTE4MjciLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJodHRwczovL2Nkbi1pY29ucy1wbmcuZmxhdGljb24uY29tLzUxMi8yOTM2LzI5MzY3NTMucG5nIiwKICAgICAgInNpemVzIjogIjUxMng1MTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9wbmciCiAgICB9CiAgXQp9">
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #001f3f; padding: 10px; color: #333; margin: 0; }
-        .card { background: white; padding: 20px; border-radius: 20px; max-width: 450px; margin: 10px auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-
-        /* Sistema de Pestañas */
-        .tab-container { display: flex; background: #002b55; border-radius: 12px; margin-bottom: 20px; padding: 5px; gap: 5px; }
-        .tab { flex: 1; text-align: center; padding: 10px 5px; color: white; cursor: pointer; border-radius: 8px; font-size: 11px; font-weight: bold; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
-        .tab.active { background: white; color: #001f3f; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-
-        h2 { color: #004080; text-align: center; margin-bottom: 15px; font-size: 18px; text-transform: uppercase; }
-        .section-header { color: #005a9c; font-weight: bold; margin-top: 15px; font-size: 14px; border-left: 5px solid #005a9c; padding: 6px 10px; background: #f0f7ff; }
-        label { display: block; margin-top: 10px; font-weight: 600; font-size: 12px; color: #666; }
-        input, select { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 16px; }
-
-        .btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-size: 15px; font-weight: bold; cursor: pointer; margin-top: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .btn-blue { background: #005a9c; color: white; }
-        .btn-orange { background: #e67e22; color: white; margin-top: 15px; }
-
-        /* Estilos Auditoría */
-        .result-box { background: #001f3f; color: white; padding: 20px; border-radius: 15px; text-align: center; margin-top: 20px; }
-        .result-val { font-size: 32px; font-weight: bold; color: #2ecc71; display: block; }
-        .total-box { background: #eef6ff; padding: 15px; border-radius: 15px; margin-top: 20px; border: 2px solid #004080; text-align: center; }
-        .total-amount { font-size: 28px; font-weight: bold; color: #d9534f; display: block; }
-        .footer { font-size: 10px; color: #aaa; text-align: center; margin-top: 20px; padding-bottom: 10px; }
+        body { background-color: #0f172a; color: white; font-family: sans-serif; }
+        .card-active { border: 2px solid #38bdf8; background: #1e293b; }
     </style>
 </head>
-<body>
+<body class="p-6">
 
-<div class="card">
-    <div class="tab-container">
-        <div class="tab active" onclick="switchTab('logbook')">LOGBOOK</div>
-        <div class="tab" onclick="switchTab('auditor')">FUEL AUDITOR</div>
-        <div class="tab" onclick="abrirRange()" style="background: #2ecc71; color: white;">⚓ RANGE</div>
+    <header class="mb-8 text-center">
+        <h1 class="text-3xl font-bold text-sky-400">Riviera Expeditions</h1>
+        <p class="text-slate-400 text-sm">Optimal Card Selector</p>
+    </header>
+
+    <div id="category-grid" class="grid grid-cols-2 gap-4 mb-8">
+        <button onclick="checkCard('diesel')" class="p-4 bg-slate-800 rounded-xl flex flex-col items-center gap-2">
+            <span class="text-2xl">⛽</span>
+            <span class="text-sm font-semibold">Marina Diesel</span>
+        </button>
+        <button onclick="checkCard('dining')" class="p-4 bg-slate-800 rounded-xl flex flex-col items-center gap-2">
+            <span class="text-2xl">🍽️</span>
+            <span class="text-sm font-semibold">Restaurants</span>
+        </button>
+        <button onclick="checkCard('costco')" class="p-4 bg-slate-800 rounded-xl flex flex-col items-center gap-2">
+            <span class="text-2xl">🛒</span>
+            <span class="text-sm font-semibold">Costco</span>
+        </button>
+        <button onclick="checkCard('tech')" class="p-4 bg-slate-800 rounded-xl flex flex-col items-center gap-2">
+            <span class="text-2xl">📸</span>
+            <span class="text-sm font-semibold">Nikon / Tech</span>
+        </button>
+        <button onclick="checkCard('travel')" class="p-4 bg-slate-800 rounded-xl flex flex-col items-center gap-2">
+            <span class="text-2xl">✈️</span>
+            <span class="text-sm font-semibold">Intl. Travel</span>
+        </button>
+        <button onclick="checkCard('media')" class="p-4 bg-slate-800 rounded-xl flex flex-col items-center gap-2">
+            <span class="text-2xl">📺</span>
+            <span class="text-sm font-semibold">Streaming</span>
+        </button>
     </div>
 
-    <div id="logbook" class="tab-content active">
-        <h2>Bitácora de Gastos</h2>
-        <label>Viaje Actual:</label>
-        <select id="tripSelect" onchange="updateTotalDisplay()">
-            <option value="">-- Conectando... --</option>
-        </select>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-            <div><label>Nuevo Destino:</label><input type="text" id="newTripDest" placeholder="Ej: Culebra"></div>
-            <div><label>Fecha Salida:</label><input type="date" id="newTripDate"></div>
-        </div>
-        <button class="btn btn-blue" onclick="createNewTrip()">🚀 CREAR EXPEDICIÓN</button>
-
-        <div class="section-header">Registro Diario</div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-            <div><label>Fecha Gasto:</label><input type="date" id="fechaGasto"></div>
-            <div>
-                <label>Categoría:</label>
-                <select id="cat">
-                    <option value="Combustible">⛽ Diesel</option>
-                    <option value="Muelle">⚓ Muelle</option>
-                    <option value="Groceries">🛒 Comida</option>
-                    <option value="F&B">🍽️ F&B</option>
-                    <option value="Otros">⚙️ Otros</option>
-                </select>
-            </div>
-        </div>
-        <label>Monto ($):</label>
-        <input type="number" id="monto" placeholder="0.00" inputmode="decimal">
-        <button class="btn btn-orange" onclick="addExpense()">➕ REGISTRAR PARTIDA</button>
-
-        <div class="total-box">
-            <span style="font-size:12px; font-weight:bold; color:#004080;">TOTAL ACUMULADO:</span>
-            <span id="displayTotal" class="total-amount">$0.00</span>
+    <div id="result-area" class="hidden animate-in fade-in duration-500">
+        <div class="bg-slate-800 p-6 rounded-2xl border border-sky-500/30">
+            <h2 id="result-title" class="text-xl font-bold mb-2">Recommended Card</h2>
+            <p id="result-card" class="text-2xl font-black text-sky-400 mb-4"></p>
+            <div id="result-benefits" class="text-slate-300 text-sm space-y-2"></div>
         </div>
     </div>
 
-    <div id="auditor" class="tab-content">
-        <h2>Confirmar Consumo</h2>
-        <p style="text-align:center; font-size:12px; color:#666;">Basado en 51 GPH ideales</p>
+    <script>
+        const logic = {
+            diesel: {
+                card: "Amex Schwab Platinum",
+                benefits: [
+                    "• Marinas rarely code as 'Gas Stations'.",
+                    "• Earns 1X Membership Rewards point.",
+                    [cite_start]"• Best for high-value points transfer[cite: 1195]."
+                ]
+            },
+            dining: {
+                card: "Costco Anywhere Business",
+                benefits: [
+                    [cite_start]"• 3% Cash Back on restaurants and bars worldwide[cite: 1060].",
+                    "• Includes lounges and fast food."
+                ]
+            },
+            costco: {
+                card: "Costco Anywhere Business",
+                benefits: [
+                    [cite_start]"• 2% Cash Back on all Costco purchases[cite: 1063].",
+                    [cite_start]"• Card also acts as your membership ID[cite: 1095]."
+                ]
+            },
+            tech: {
+                card: "Amazon Prime Rewards",
+                benefits: [
+                    [cite_start]"• 5% Cash Back on Amazon.com & Whole Foods[cite: 1373].",
+                    [cite_start]"• Includes 1-year Extended Warranty on Nikon gear[cite: 100, 814]."
+                ]
+            },
+            travel: {
+                card: "Amex Schwab Platinum",
+                benefits: [
+                    [cite_start]"• 5X Points on flights[cite: 1553].",
+                    [cite_start]"• $1,500,000 Travel Accident Insurance[cite: 651].",
+                    [cite_start]"• Priority Pass & Centurion Lounge access[cite: 2407, 2264]."
+                ]
+            },
+            media: {
+                card: "Amex Schwab Platinum",
+                benefits: [
+                    [cite_start]"• $25/month Digital Entertainment Credit[cite: 1373].",
+                    [cite_start]"• Covers Disney+, Hulu, Peacock, and WSJ[cite: 1379]."
+                ]
+            }
+        };
 
-        <label>Galones Consumidos (Reales):</label>
-        <input type="number" id="galReal" placeholder="Lo que echaste en el tanque" oninput="calcFuel()">
-
-        <label>Horas de Motor (Trayecto):</label>
-        <input type="number" id="hrsReal" placeholder="Horas exactas" oninput="calcFuel()">
-
-        <div class="result-box">
-            <span style="font-size: 13px; opacity: 0.8;">TU CONSUMO REAL:</span>
-            <span id="resGPH" class="result-val">0.0</span>
-            <span style="font-size: 16px;">GPH (Combinado)</span>
-            <div id="fuelStatus" style="margin-top:10px; font-size:13px; font-weight:bold;"></div>
-        </div>
-        <p style="font-size:11px; margin-top:15px;">* Un consumo mayor a 51 GPH a 2100 RPM puede indicar necesidad de limpieza de fondo o revisión de motores.</p>
-    </div>
-
-    <div class="footer">Casco: RIY53032D415 | Fleet Command v8.5</div>
-</div>
-
-<script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyZEmBTB7xtMUngAfG3RmfKSwNhrLibrbe1WejAmyUNwzfPolDiRKyeWyvGt2rCKsS1/exec';
-    let listaViajes = [];
-
-    // CAMBIO DE PESTAÑAS CORREGIDO
-    function switchTab(tabId) {
-        // Ocultar todos
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        // Desactivar todos los botones
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        
-        // Mostrar el seleccionado
-        document.getElementById(tabId).classList.add('active');
-        // Activar el botón clicado
-        event.currentTarget.classList.add('active');
-    }
-
-    // ABRIR APP DE RANGO (Ajusta tu URL de GitHub aquí)
-    function abrirRange() {
-        window.open('https://tu-usuario.github.io/riviera-range-pro/', '_blank');
-    }
-
-    async function cargarViajes(nombreASeleccionar = null) {
-        try {
-            const response = await fetch(scriptURL);
-            listaViajes = await response.json();
-            const select = document.getElementById('tripSelect');
-            select.innerHTML = '<option value="">-- Selecciona viaje --</option>';
-            listaViajes.forEach(v => {
-                select.innerHTML += `<option value="${v.nombre}">${v.nombre}</option>`;
-            });
-            if (nombreASeleccionar) { select.value = nombreASeleccionar; updateTotalDisplay(); }
-        } catch (e) { console.error("Error Drive"); }
-    }
-
-    function updateTotalDisplay() {
-        const nombre = document.getElementById('tripSelect').value;
-        const viaje = listaViajes.find(v => v.nombre === nombre);
-        document.getElementById('displayTotal').innerText = viaje ? `$${viaje.total.toFixed(2)}` : "$0.00";
-    }
-
-    async function createNewTrip() {
-        const dest = document.getElementById('newTripDest').value;
-        const date = document.getElementById('newTripDate').value;
-        if(!dest || !date) return alert("Faltan datos");
-        const name = `${dest} - ${date}`;
-        await enviar({ type: "NUEVO_VIAJE", tripName: name, fecha: date });
-        document.getElementById('newTripDest').value = "";
-        cargarViajes(name);
-    }
-
-    async function addExpense() {
-        const name = document.getElementById('tripSelect').value;
-        const monto = parseFloat(document.getElementById('monto').value);
-        if(!name || isNaN(monto)) return alert("Revisa los datos");
-        await enviar({ type: "GASTO_DETALLE", tripName: name, categoria: document.getElementById('cat').value, monto: monto, fecha: document.getElementById('fechaGasto').value });
-        document.getElementById('monto').value = "";
-        setTimeout(() => cargarViajes(name), 1500);
-    }
-
-    function calcFuel() {
-        const gal = parseFloat(document.getElementById('galReal').value) || 0;
-        const hrs = parseFloat(document.getElementById('hrsReal').value) || 0;
-        if(gal > 0 && hrs > 0) {
-            const real = gal / hrs;
-            document.getElementById('resGPH').innerText = real.toFixed(1);
-            const status = document.getElementById('fuelStatus');
-            const diff = real - 51;
-            if(Math.abs(diff) < 2) { status.innerText = "✅ DENTRO DEL RANGO (51 GPH)"; status.style.color = "#2ecc71"; }
-            else if(diff > 2) { status.innerText = "⚠️ CONSUMO ELEVADO (+" + diff.toFixed(1) + ")"; status.style.color = "#e74c3c"; }
-            else { status.innerText = "⚓ EFICIENCIA SUPERIOR"; status.style.color = "#3498db"; }
+        function checkCard(cat) {
+            const data = logic[cat];
+            document.getElementById('result-area').classList.remove('hidden');
+            document.getElementById('result-card').innerText = data.card;
+            document.getElementById('result-benefits').innerHTML = data.benefits.join('<br>');
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
-    }
-
-    async function enviar(data) {
-        try {
-            console.log("Enviando a Drive...", data);
-            await fetch(scriptURL, { 
-                method: 'POST', 
-                mode: 'no-cors', 
-                cache: 'no-cache',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data) 
-            });
-            alert("✅ Registrado en Google Drive");
-        } catch (e) { 
-            console.error("Error de conexión:", e);
-            alert("❌ Error de red: No se pudo conectar a Google Sheets"); 
-        }
-    }
-
-    document.getElementById('newTripDate').value = new Date().toISOString().split('T')[0];
-    document.getElementById('fechaGasto').value = new Date().toISOString().split('T')[0];
-    cargarViajes();
-</script>
+    </script>
 </body>
 </html>
