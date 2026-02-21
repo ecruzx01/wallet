@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Digital Wallet</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkRpZ2l0YWwgV2FsbGV0IiwKICAic2hvcnRfbmFtZSI6ICJXYWxsZXQiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzAxMDQwOSIsCiAgInRoZW1lX2NvbG9yIjogIiMwMTA0MDkiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJpY29uLnBuZyIsCiAgICAgICJzaXplcyI6ICI1MTJ4NTEyIiwKICAgICAgInR5cGUiOiAiaW1hZ2UvcG5nIgogICAgfQogIF0KfQ==">
-    
+    <link rel="manifest" href="manifest.json">
     <style>
         body {
             background-image: linear-gradient(to bottom, rgba(1, 4, 9, 0.4), rgba(1, 4, 9, 0.9)), url('wallet.jpg');
@@ -21,11 +19,7 @@
             backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .card-face { 
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8); 
-        }
-        * { -webkit-tap-highlight-color: transparent; }
+        .card-face { transition: all 0.4s ease; box-shadow: 0 20px 50px rgba(0,0,0,0.8); }
     </style>
 </head>
 <body class="text-gray-100 font-sans min-h-screen">
@@ -39,131 +33,54 @@
         <div class="mb-10 mt-4">
             <div class="glass-panel rounded-3xl p-1 shadow-2xl">
                 <select id="category" onchange="updateCard()" class="w-full bg-transparent text-white text-sm font-black uppercase tracking-widest rounded-2xl p-5 outline-none appearance-none cursor-pointer">
-                    <option value="" disabled selected class="bg-[#0d1117]">Select Category</option>
-                    
+                    <option value="" disabled selected class="bg-[#0d1117]">Select a Category</option>
                     <optgroup label="Auto & Transport" class="bg-[#0d1117]">
                         <option value="gas">⛽ Gas & Fuel</option>
                         <option value="rideshare">🚗 Rideshare</option>
-                        <option value="service">🔧 Service & Parts</option>
-                        <option value="insurance">🛡️ Car Insurance</option>
                     </optgroup>
-
-                    <optgroup label="Dining & Drinks" class="bg-[#0d1117]">
-                        <option value="dining">🍽️ Restaurants & Dining</option>
-                        <option value="fastfood">🍔 Fast Food & Delivery</option>
-                        <option value="coffee">☕ Coffee Shops</option>
-                        <option value="bars">🍸 Bars & Lounges</option>
-                    </optgroup>
-
-                    <optgroup label="Groceries & Shopping" class="bg-[#0d1117]">
+                    <optgroup label="Dining & Shopping" class="bg-[#0d1117]">
+                        <option value="dining">🍽️ Restaurants</option>
                         <option value="costco">🛒 Warehouse Club</option>
-                        <option value="groceries">🍏 Groceries</option>
-                        <option value="electronics">💻 Electronics & Tech</option>
-                        <option value="hobbies">🔫 Hobbies</option>
-                        <option value="clothing">👕 Clothing & Retail</option>
                     </optgroup>
-
-                    <optgroup label="Health & Personal" class="bg-[#0d1117]">
-                        <option value="healthcare">🏥 Health Services</option>
-                        <option value="fitness">💪 Fitness & Gym</option>
-                        <option value="personal">💇 Personal Care</option>
-                        <option value="pharmacy">💊 Pharmacy & Vitamins</option>
-                    </optgroup>
-
-                    <optgroup label="Home & Others" class="bg-[#0d1117]">
-                        <option value="maintenance">🏠 Home Maintenance</option>
-                        <option value="kids">🧒 Family Needs</option>
-                        <option value="pets">🐕 Pets & Veterinary</option>
-                        <option value="media">📺 Subscriptions</option>
-                        <option value="utilities">⚡ Utilities & Internet</option>
-                    </optgroup>
-                </select>
+                    </select>
             </div>
         </div>
 
         <div id="display-area" class="hidden space-y-8 pb-12">
-            
-            <div class="animate-in slide-in-from-bottom duration-500">
-                <p class="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-3 ml-2">Primary Selection</p>
-                <div id="card1-bg" class="card-face relative h-48 w-full rounded-3xl p-6 flex flex-col justify-between overflow-hidden border border-white/10">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 text-7xl" id="card1-icon">💳</div>
-                    <div>
-                        <h3 id="card1-name" class="text-2xl font-black italic tracking-tight uppercase text-white"></h3>
-                        <p id="card1-type" class="text-[10px] font-bold opacity-60 uppercase mt-1 text-white"></p>
-                    </div>
-                    <div class="bg-black/60 p-4 rounded-2xl backdrop-blur-xl border border-white/10">
-                        <p id="card1-benefit" class="text-xs font-bold leading-relaxed text-white"></p>
-                    </div>
+            <div id="card1-bg" class="card-face relative h-48 w-full rounded-3xl p-6 flex flex-col justify-between overflow-hidden border border-white/10">
+                <div class="absolute top-0 right-0 p-4 opacity-10 text-7xl" id="card1-icon">💳</div>
+                <div>
+                    <h3 id="card1-name" class="text-2xl font-black italic uppercase text-white"></h3>
                 </div>
-            </div>
-
-            <div class="animate-in slide-in-from-bottom duration-500 delay-100">
-                <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 ml-2">Secondary (Backup)</p>
-                <div id="card2-bg" class="card-face relative h-40 w-full rounded-3xl p-5 flex flex-col justify-between overflow-hidden border border-gray-800">
-                    <div class="absolute top-0 right-0 p-4 opacity-5 text-5xl" id="card2-icon">💳</div>
-                    <div>
-                        <h3 id="card2-name" class="text-xl font-bold uppercase text-white"></h3>
-                        <p id="card2-type" class="text-[9px] font-bold opacity-50 uppercase mt-1 text-white"></p>
-                    </div>
-                    <div class="bg-black/40 p-3 rounded-xl border border-white/5">
-                        <p id="card2-benefit" class="text-[11px] font-medium text-gray-400 leading-snug"></p>
-                    </div>
+                <div class="bg-black/60 p-4 rounded-2xl backdrop-blur-xl border border-white/10">
+                    <p id="card1-benefit" class="text-xs font-bold leading-relaxed text-white"></p>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        const cards = {
-            amex: { name: "Amex Schwab Platinum", type: "American Express", color: "from-gray-300 to-gray-500", icon: "🏛️" },
-            costco: { name: "Costco Anywhere Biz", type: "Visa Business", color: "from-blue-600 to-blue-900", icon: "🛒" },
-            amazon: { name: "Amazon Prime Rewards", type: "Visa Signature", color: "from-gray-800 to-black", icon: "📦" },
-            infinite: { name: "PREMIA Infinite", type: "Visa Infinite", color: "from-indigo-900 to-black", icon: "💎" }
-        };
+        // Register the Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
 
-        const logic = {
-            gas: { c1: 'costco', b1: "Earn 4% back on gas and EV charging globally for the first $7,000 per year, and 5% specifically at warehouse club stations.", c2: 'infinite', b2: "Standard 1 Point per $1 spent." },
-            rideshare: { c1: 'amex', b1: "Apply monthly credits for rides or delivery services.", c2: 'amazon', b2: "Earn 2% cash back on local transit and rideshare." },
-            service: { c1: 'costco', b1: "Earn 3% back on car rentals. Parts and maintenance earn the base 1% cash back.", c2: 'infinite', b2: "Standard 1 Point per $1 spent." },
-            insurance: { c1: 'infinite', b1: "Utilize primary car rental coverage for periods up to 31 days.", c2: 'costco', b2: "Provides standard purchase protections." },
-            dining: { c1: 'costco', b1: "Earn 3% cash back on restaurants, cafes, bars, and lounges worldwide.", c2: 'amazon', b2: "Earn 2% cash back on the dining category." },
-            fastfood: { c1: 'costco', b1: "Earn 3% back (includes fast food and delivery).", c2: 'amazon', b2: "Earn 2% back on the dining category." },
-            coffee: { c1: 'costco', b1: "Earn 3% cash back on coffee shop purchases.", c2: 'amazon', b2: "Earn 2% back on the dining category." },
-            bars: { c1: 'costco', b1: "Earn 3% cash back on bar and lounge tabs worldwide.", c2: 'amex', b2: "Earn 1X points—useful for high group tabs." },
-            costco: { c1: 'costco', b1: "Earn 2% cash back on all warehouse and warehouse.com purchases.", c2: 'infinite', b2: "Visa is accepted. Earn 1 Point per $1." },
-            groceries: { c1: 'amazon', b1: "Earn 5% cash back at specific grocery partners.", c2: 'costco', b2: "Earn 1% cash back at standard supermarkets." },
-            electronics: { c1: 'amazon', b1: "Earn 5% back on tech and receive an Extended Warranty that adds a year to the manufacturer's coverage.", c2: 'infinite', b2: "Provides high-limit Purchase Protection up to $10,000 per event." },
-            hobbies: { c1: 'amazon', b1: "Earn 5% back on tech and gear. Purchase Protection covers 120 days.", c2: 'infinite', b2: "Includes high-limit coverage for lost or damaged specific gear." },
-            clothing: { c1: 'amex', b1: "Utilize annual statement credits at specific luxury retailers.", c2: 'infinite', b2: "High-limit Purchase Protection for luxury items." },
-            healthcare: { c1: 'amex', b1: "Best for medical due to superior customer service and dispute support.", c2: 'infinite', b2: "Accepted in most clinics. Earn 1 Point per $1." },
-            fitness: { c1: 'amex', b1: "Apply annual fitness membership credits.", c2: 'infinite', b2: "Standard 1 Point per $1 spent." },
-            personal: { c1: 'amex', b1: "Apply statement credits for high-end personal care. Use Concierge for bookings.", c2: 'infinite', b2: "Concierge for spa and salon arrangements." },
-            pharmacy: { c1: 'infinite', b1: "Widely accepted. Earn 1 Point per $1.", c2: 'amazon', b2: "Earn 1% cash back." },
-            maintenance: { c1: 'infinite', b1: "Best for large purchases due to strong Purchase Protection.", c2: 'costco', b2: "Earn 1% cash back on maintenance items." },
-            kids: { c1: 'costco', b1: "Earn 2% back on bulk supplies and household items.", c2: 'amazon', b2: "Earn 5% back on specific retail purchases." },
-            pets: { c1: 'costco', b1: "Earn 2% back on bulk food and veterinary supplies.", c2: 'amazon', b2: "Earn 5% back on recurring deliveries." },
-            media: { c1: 'amex', b1: "Use monthly Digital Entertainment Credits for specific streaming services.", c2: 'infinite', b2: "Includes streaming credits if monthly spend exceeds a threshold." },
-            utilities: { c1: 'infinite', b1: "Reliable for recurring utility bills. Earn 1 Point per $1.", c2: 'amex', b2: "Standard 1X Membership Rewards point." }
+        const cards = {
+            gas: { name: "Costco Anywhere Biz", color: "from-blue-600 to-blue-900", b1: "4% back on gas and 5% at warehouse stations." },
+            rideshare: { name: "Amex Schwab Platinum", color: "from-gray-300 to-gray-500", b1: "Apply monthly credits for rides." },
+            dining: { name: "Costco Anywhere Biz", color: "from-blue-600 to-blue-900", b1: "3% back on restaurants and bars worldwide." },
+            costco: { name: "Costco Anywhere Biz", color: "from-blue-600 to-blue-900", b1: "2% back on warehouse purchases." }
         };
 
         function updateCard() {
             const val = document.getElementById('category').value;
             const display = document.getElementById('display-area');
-            const data = logic[val];
+            const data = cards[val];
             if (data) {
                 display.classList.remove('hidden');
-                const c1 = cards[data.c1];
-                document.getElementById('card1-name').innerText = c1.name;
-                document.getElementById('card1-type').innerText = c1.type;
+                document.getElementById('card1-name').innerText = data.name;
                 document.getElementById('card1-benefit').innerText = data.b1;
-                document.getElementById('card1-bg').className = `card-face relative h-48 w-full rounded-3xl p-6 flex flex-col justify-between overflow-hidden bg-gradient-to-br ${c1.color}`;
-                document.getElementById('card1-icon').innerText = c1.icon;
-                const c2 = cards[data.c2];
-                document.getElementById('card2-name').innerText = c2.name;
-                document.getElementById('card2-type').innerText = c2.type;
-                document.getElementById('card2-benefit').innerText = data.b2;
-                document.getElementById('card2-bg').className = `card-face relative h-40 w-full rounded-3xl p-5 flex flex-col justify-between overflow-hidden border border-gray-800 bg-gradient-to-br ${c2.color} bg-opacity-10`;
-                document.getElementById('card2-icon').innerText = c2.icon;
+                document.getElementById('card1-bg').className = `card-face relative h-48 w-full rounded-3xl p-6 flex flex-col justify-between overflow-hidden bg-gradient-to-br ${data.color}`;
                 window.scrollTo({ top: display.offsetTop - 50, behavior: 'smooth' });
             }
         }
