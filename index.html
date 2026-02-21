@@ -7,86 +7,86 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkVkd2luJ3MgV2FsbGV0IiwKICAic2hvcnRfbmFtZSI6ICJXYWxsZXQiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzAxMDQwOSIsCiAgInRoZW1lX2NvbG9yIjogIiMwMTA0MDkiCn0=">
     <style>
-        .card-face { transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        body { background-color: #010409; }
-        /* Custom styling for the selector overlay */
-        .glass-overlay {
-            background: rgba(13, 17, 23, 0.7);
-            backdrop-filter: blur(8px);
+        body {
+            background-image: linear-gradient(to bottom, rgba(1, 4, 9, 0.6), rgba(1, 4, 9, 0.9)), url('wallet.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-color: #010409;
+        }
+        .glass-panel {
+            background: rgba(22, 27, 34, 0.75);
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
+        .card-face { transition: all 0.3s ease; box-shadow: 0 10px 40px rgba(0,0,0,0.7); }
     </style>
 </head>
-<body class="text-gray-100 font-sans min-h-screen pb-12">
+<body class="text-gray-100 font-sans min-h-screen">
 
-    <div class="max-w-md mx-auto p-6">
-        <header class="text-center mt-4 mb-2">
+    <div class="max-w-md mx-auto p-6 min-h-screen flex flex-col">
+        <header class="text-center mt-4 mb-8">
             <h1 class="text-3xl font-black text-blue-500 tracking-tighter uppercase italic">Edwin's Wallet</h1>
-            <p class="text-gray-500 text-[10px] font-bold tracking-[0.3em] mt-1 mb-6 uppercase">Rewards Optimizer</p>
+            <p class="text-gray-400 text-[10px] font-bold tracking-[0.3em] mt-1 uppercase">Rewards Optimizer</p>
         </header>
 
-        <div class="relative mb-10 overflow-hidden rounded-3xl shadow-2xl border border-white/10 group">
-            <img src="wallet.jpg" alt="Wallet" class="w-full transform group-hover:scale-[1.02] transition-transform duration-700">
-            
-            <div class="absolute inset-0 bg-gradient-to-t from-[#010409] via-transparent to-transparent opacity-60"></div>
+        <div class="mb-12">
+            <label for="category" class="block text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-3 ml-1">Current Task</label>
+            <div class="glass-panel rounded-2xl p-1 shadow-2xl">
+                <select id="category" onchange="updateCard()" class="w-full bg-transparent text-white text-sm font-bold uppercase tracking-wide rounded-xl p-4 outline-none appearance-none cursor-pointer">
+                    <option value="" disabled selected class="bg-[#0d1117]">What are we paying for?</option>
+                    
+                    <optgroup label="Auto & Transport" class="bg-[#0d1117]">
+                        <option value="gas">⛽ Gas & Fuel (Auto)</option>
+                        <option value="rideshare">🚗 Rideshare (Uber/Taxi)</option>
+                        <option value="service">🔧 Service & Parts</option>
+                        <option value="insurance">🛡️ Car Insurance</option>
+                    </optgroup>
 
-            <div class="absolute bottom-6 left-6 right-6">
-                <div class="glass-overlay p-1 rounded-2xl shadow-2xl">
-                    <select id="category" onchange="updateCard()" class="w-full bg-transparent text-white text-sm font-bold uppercase tracking-wide rounded-xl p-4 outline-none appearance-none cursor-pointer">
-                        <option value="" disabled selected class="bg-[#0d1117]">Tap Wallet to Choose...</option>
-                        
-                        <optgroup label="Auto & Transport" class="bg-[#0d1117]">
-                            <option value="gas">⛽ Gas & Fuel (Auto)</option>
-                            <option value="rideshare">🚗 Rideshare (Uber/Taxi)</option>
-                            <option value="service">🔧 Service & Parts</option>
-                            <option value="insurance">🛡️ Car Insurance</option>
-                        </optgroup>
+                    <optgroup label="Dining & Drinks" class="bg-[#0d1117]">
+                        <option value="dining">🍽️ Restaurants & Dining</option>
+                        <option value="fastfood">🍔 Fast Food & Delivery</option>
+                        <option value="coffee">☕ Coffee Shops</option>
+                        <option value="bars">🍸 Bars & Lounges</option>
+                    </optgroup>
 
-                        <optgroup label="Dining & Drinks" class="bg-[#0d1117]">
-                            <option value="dining">🍽️ Restaurants & Dining</option>
-                            <option value="fastfood">🍔 Fast Food & Delivery</option>
-                            <option value="coffee">☕ Coffee Shops</option>
-                            <option value="bars">🍸 Bars & Lounges</option>
-                        </optgroup>
+                    <optgroup label="Groceries & Shopping" class="bg-[#0d1117]">
+                        <option value="costco">🛒 Costco Warehouse</option>
+                        <option value="groceries">🍏 Groceries (Non-Costco)</option>
+                        <option value="electronics">💻 Electronics & Tech</option>
+                        <option value="hobbies">🔫 Hobbies (Guns/Diving)</option>
+                        <option value="clothing">👕 Clothing & Saks</option>
+                    </optgroup>
 
-                        <optgroup label="Groceries & Shopping" class="bg-[#0d1117]">
-                            <option value="costco">🛒 Costco Warehouse</option>
-                            <option value="groceries">🍏 Groceries (Non-Costco)</option>
-                            <option value="electronics">💻 Electronics & Tech</option>
-                            <option value="hobbies">🔫 Hobbies (Guns/Diving)</option>
-                            <option value="clothing">👕 Clothing & Saks</option>
-                        </optgroup>
+                    <optgroup label="Health & Personal" class="bg-[#0d1117]">
+                        <option value="healthcare">🏥 Health (Doctor/Dentist)</option>
+                        <option value="fitness">💪 Fitness & Gym</option>
+                        <option value="personal">💇 Personal Care</option>
+                        <option value="pharmacy">💊 Pharmacy & Vitamins</option>
+                    </optgroup>
 
-                        <optgroup label="Health & Personal" class="bg-[#0d1117]">
-                            <option value="healthcare">🏥 Health (Doctor/Dentist)</option>
-                            <option value="fitness">💪 Fitness & Gym</option>
-                            <option value="personal">💇 Personal Care</option>
-                            <option value="pharmacy">💊 Pharmacy & Vitamins</option>
-                        </optgroup>
-
-                        <optgroup label="Home & Others" class="bg-[#0d1117]">
-                            <option value="maintenance">🏠 Home Maintenance</option>
-                            <option value="kids">🧒 Kids & Family Needs</option>
-                            <option value="pets">🐕 Pets & Veterinary</option>
-                            <option value="media">📺 Streaming & Subscriptions</option>
-                            <option value="utilities">⚡ Utilities & Internet</option>
-                        </optgroup>
-                    </select>
-                </div>
+                    <optgroup label="Home & Others" class="bg-[#0d1117]">
+                        <option value="maintenance">🏠 Home Maintenance</option>
+                        <option value="kids">🧒 Kids & Family Needs</option>
+                        <option value="pets">🐕 Pets & Veterinary</option>
+                        <option value="media">📺 Streaming & Subscriptions</option>
+                        <option value="utilities">⚡ Utilities & Internet</option>
+                    </optgroup>
+                </select>
             </div>
         </div>
 
-        <div id="display-area" class="hidden space-y-8">
+        <div id="display-area" class="hidden space-y-8 pb-10">
             
             <div class="animate-in slide-in-from-bottom duration-400">
                 <p class="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-3 ml-1">Primary Selection</p>
-                <div id="card1-bg" class="card-face relative h-44 w-full rounded-2xl p-6 flex flex-col justify-between overflow-hidden border border-white/5">
+                <div id="card1-bg" class="card-face relative h-44 w-full rounded-2xl p-6 flex flex-col justify-between overflow-hidden border border-white/10">
                     <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl" id="card1-icon">💳</div>
                     <div>
                         <h3 id="card1-name" class="text-xl font-black italic tracking-tight uppercase text-white"></h3>
                         <p id="card1-type" class="text-[9px] font-bold opacity-60 uppercase mt-1 text-white"></p>
                     </div>
-                    <div class="bg-black/50 p-3 rounded-xl backdrop-blur-md border border-white/10">
+                    <div class="bg-black/60 p-3 rounded-xl backdrop-blur-md border border-white/10">
                         <p id="card1-benefit" class="text-[11px] font-bold leading-tight text-white"></p>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                         <h3 id="card2-name" class="text-lg font-bold uppercase text-white"></h3>
                         <p id="card2-type" class="text-[8px] font-bold opacity-50 uppercase mt-1 text-white"></p>
                     </div>
-                    <div class="bg-black/30 p-2 rounded-lg border border-white/5">
+                    <div class="bg-black/40 p-2 rounded-lg border border-white/5">
                         <p id="card2-benefit" class="text-[10px] font-medium text-gray-400"></p>
                     </div>
                 </div>
@@ -126,7 +126,7 @@
             fastfood: { c1: 'costco', b1: "Earn 3% back (includes fast food and delivery).", c2: 'amazon', b2: "Earn 2% back on the dining category." },
             coffee: { c1: 'costco', b1: "Earn 3% cash back on coffee shop purchases.", c2: 'amazon', b2: "Earn 2% back on the dining category." },
             bars: { c1: 'costco', b1: "Earn 3% cash back on bar and lounge tabs worldwide.", c2: 'amex', b2: "Earn 1X points—useful for high group tabs." },
-            costco: { c1: 'costco', b1: "Earn 2% cash back on all purchases from Costco and Costco.com.", c2: 'infinite', b2: "Visa is accepted at the warehouse. Earn 1 Point per $1." },
+            costco: { c1: 'costco', b1: "Earn 2% cash back on all Costco and Costco.com purchases.", c2: 'infinite', b2: "Visa is accepted at the warehouse. Earn 1 Point per $1." },
             groceries: { c1: 'amazon', b1: "Earn 5% cash back at Whole Foods Market and Amazon Fresh.", c2: 'costco', b2: "Earn 1% cash back at standard supermarkets." },
             electronics: { c1: 'amazon', b1: "Earn 5% back on Amazon.com and receive an Extended Warranty that adds a year to the manufacturer's coverage.", c2: 'infinite', b2: "Provides high-limit Purchase Protection up to $10,000 per event." },
             hobbies: { c1: 'amazon', b1: "Earn 5% back on tech and gear. Purchase Protection covers 120 days.", c2: 'infinite', b2: "Includes $3,000 baggage loss for diving or photography gear." },
