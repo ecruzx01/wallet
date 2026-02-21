@@ -12,28 +12,44 @@
     <div class="max-w-md mx-auto">
         <header class="text-center mb-8">
             <h1 class="text-3xl font-extrabold text-blue-400 tracking-tight">Daily Wallet</h1>
-            <p class="text-gray-400 mt-1">Edwin's All-Purpose Selector</p>
+            <p class="text-gray-400 mt-1">Edwin's Daily Spend Selector</p>
         </header>
 
         <div class="mb-6">
             <label for="category" class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Select Spending Category</label>
             <select id="category" onchange="updateCard()" class="w-full bg-[#161b22] border border-gray-700 text-white text-base rounded-xl p-4 focus:ring-2 focus:ring-blue-500 outline-none appearance-none cursor-pointer">
                 <option value="" disabled selected>Choose a category...</option>
-                <optgroup label="Essential & Home">
-                    <option value="costco">🛒 Costco (Provisions/Household)</option>
-                    <option value="groceries">🍏 Groceries (Non-Costco)</option>
-                    <option value="healthcare">🏥 Healthcare (Doctors/Medication)</option>
-                    <option value="gas">⛽ Gas Station (Auto)</option>
+                
+                <optgroup label="Auto & Transport">
+                    <option value="gas">⛽ Gas & Fuel (Auto)</option>
+                    <option value="rideshare">🚗 Rideshare (Uber/Taxi)</option>
+                    <option value="service">🔧 Service & Parts</option>
                 </optgroup>
-                <optgroup label="Lifestyle & Hobby">
-                    <option value="tech">📸 Tech, Cameras & Guns</option>
-                    <option value="dining">🍽️ Restaurants & Bars</option>
-                    <option value="media">📺 Streaming & Subscriptions</option>
-                    <option value="personal">💇 Personal Care (Salon/Spa)</option>
+
+                <optgroup label="Dining & Drinks">
+                    <option value="dining">🍽️ Restaurants & Dining</option>
+                    <option value="fastfood">🍔 Fast Food & Delivery</option>
+                    <option value="coffee">☕ Coffee Shops</option>
                 </optgroup>
-                <optgroup label="The Riviera (Expedition Mode)">
-                    <option value="diesel">🚤 Marina Diesel & Mooring</option>
-                    <option value="travel">✈️ International Travel</option>
+
+                <optgroup label="Groceries & Shopping">
+                    <option value="costco">🛒 Costco Purchases</option>
+                    <option value="groceries">🍏 Groceries (Anywhere else)</option>
+                    <option value="electronics">💻 Electronics & Tech</option>
+                    <option value="clothing">👕 Clothing & Shopping</option>
+                </optgroup>
+
+                <optgroup label="Health & Personal Care">
+                    <option value="healthcare">🏥 Health (Doctor/Dentist)</option>
+                    <option value="pharmacy">💊 Pharmacy & Vitamins</option>
+                    <option value="personalcare">💇 Personal Care (Hair/Spa)</option>
+                    <option value="fitness">💪 Fitness & Gym</option>
+                </optgroup>
+
+                <optgroup label="Home & Utilities">
+                    <option value="repairs">🏠 Repairs & Maintenance</option>
+                    <option value="utilities">⚡ Utilities (Water/Elec/Internet)</option>
+                    <option value="media">📺 Subscriptions (Streaming/Music)</option>
                 </optgroup>
             </select>
         </div>
@@ -45,12 +61,12 @@
                 
                 <div class="space-y-4 border-t border-gray-700 pt-4">
                     <div>
-                        <p class="text-[10px] font-bold uppercase text-gray-500 mb-1">Key Benefit</p>
+                        <p class="text-[10px] font-bold uppercase text-gray-500 mb-1">Key Reward</p>
                         <p id="benefit-text" class="text-sm text-gray-300 leading-relaxed"></p>
                     </div>
-                    <div id="secondary-benefit-box" class="hidden">
-                        <p class="text-[10px] font-bold uppercase text-gray-500 mb-1">Safety & Insurance</p>
-                        <p id="secondary-text" class="text-xs text-gray-400 italic"></p>
+                    <div id="safety-box" class="hidden">
+                        <p class="text-[10px] font-bold uppercase text-gray-500 mb-1">Protection Info</p>
+                        <p id="safety-text" class="text-xs text-gray-400 italic"></p>
                     </div>
                 </div>
             </div>
@@ -59,55 +75,90 @@
 
     <script>
         const cards = {
+            gas: {
+                name: "Costco Anywhere Business",
+                benefit: "4% Cash Back on eligible gas and EV charging globally (up to $7,000 per year).",
+                safety: ""
+            },
+            rideshare: {
+                name: "Amex Schwab Platinum",
+                benefit: "Utilize the $15 monthly Uber Cash ($20 in Dec). Make sure to set this card as the payment method.",
+                safety: "Use Amazon Prime Rewards (2% back) if Amex credits are exhausted."
+            },
+            service: {
+                name: "Costco Anywhere Business",
+                benefit: "3% Cash Back on car rentals. For parts/service, this typically earns the base 1% back.",
+                safety: ""
+            },
+            dining: {
+                name: "Costco Anywhere Business",
+                benefit: "3% Cash Back on restaurants and bars worldwide.",
+                safety: "Includes cafes and lounges."
+            },
+            fastfood: {
+                name: "Costco Anywhere Business",
+                benefit: "3% Cash Back on fast food and delivery restaurants.",
+                safety: ""
+            },
+            coffee: {
+                name: "Costco Anywhere Business",
+                benefit: "3% Cash Back on coffee shop purchases.",
+                safety: ""
+            },
             costco: {
                 name: "Costco Anywhere Business",
-                benefit: "2% Unlimited Cash Back on all Costco purchases[cite: 3594]. Use this for high-volume family provisioning.",
+                benefit: "2% Cash Back on all purchases at Costco and Costco.com[cite: 3594].",
                 safety: ""
             },
             groceries: {
                 name: "Amazon Prime Rewards",
                 benefit: "5% Back at Whole Foods Market and Amazon Fresh.",
-                safety: "Purchase Protection covers items for 120 days against damage or theft."
+                safety: ""
+            },
+            electronics: {
+                name: "Amazon Prime Rewards",
+                benefit: "5% Back on Amazon.com.",
+                safety: "Extended Warranty doubles manufacturer written warranty up to 1 year on eligible items."
+            },
+            clothing: {
+                name: "Amex Schwab Platinum",
+                benefit: "Use for the $100 annual Saks Fifth Avenue statement credit ($50 semi-annually)[cite: 4836].",
+                safety: "Use Amazon Visa for 1% elsewhere."
             },
             healthcare: {
                 name: "Amex Schwab Platinum",
-                benefit: "Earn 1X Membership Rewards point. Best for standard large medical expenses due to high limit and customer support.",
+                benefit: "Earn 1X Membership Rewards point per dollar spent[cite: 3678].",
+                safety: "Provides premium support for large medical billing disputes."
+            },
+            pharmacy: {
+                name: "Amex Schwab Platinum",
+                benefit: "Earn 1X Membership Rewards point per dollar spent[cite: 3678].",
                 safety: ""
             },
-            gas: {
-                name: "Costco Anywhere Business",
-                benefit: "4% Cash Back on eligible gas and EV charging (up to $7k/year)[cite: 3588].",
+            personalcare: {
+                name: "Amex Schwab Platinum",
+                benefit: "Best for high-end spa/salon services to reach your annual spend requirements for bonuses.",
                 safety: ""
             },
-            tech: {
-                name: "Amazon Prime Rewards",
-                benefit: "5% Back on Amazon.com. Perfect for Nikon gear and technology[cite: 3670].",
-                safety: "Extended Warranty adds an extra year to the manufacturer's warranty."
+            fitness: {
+                name: "Amex Schwab Platinum",
+                benefit: "Up to $300 annual statement credit for Equinox memberships or Equinox+[cite: 3951].",
+                safety: ""
             },
-            dining: {
-                name: "Costco Anywhere Business",
-                benefit: "3% Cash Back on restaurants, bars, and cafes worldwide.",
+            repairs: {
+                name: "PREMIA Business Rewards Max",
+                benefit: "Use for commercial/home contractor payments. View all activity through the Credit Card Manager[cite: 2541].",
+                safety: "Offers protection against unauthorized charges[cite: 2551]."
+            },
+            utilities: {
+                name: "Amex Schwab Platinum",
+                benefit: "Standard 1X points. Best for high-value points collection on recurring monthly bills[cite: 3678].",
                 safety: ""
             },
             media: {
                 name: "Amex Schwab Platinum",
-                benefit: "Use the $25 monthly Digital Entertainment Credit ($300/year).",
-                safety: "Popular Infinite also offers an $8 monthly streaming credit."
-            },
-            personal: {
-                name: "Amex Schwab Platinum",
-                benefit: "Use for the $100 Saks Fifth Avenue credit ($50 semi-annually) for high-end personal care products.",
-                safety: ""
-            },
-            diesel: {
-                name: "Amex Schwab Platinum",
-                benefit: "Marinas rarely code as 'Gas'. Take the 1X Amex point over 1% cash back on other cards.",
-                safety: ""
-            },
-            travel: {
-                name: "Amex Schwab Platinum",
-                benefit: "5X Points on flights and $200 Hotel Credit. Access to Centurion Lounges.",
-                safety: "$1,500,000 Travel Accident Insurance—essential for divers/pilots."
+                benefit: "Up to $25 monthly Digital Entertainment Credit ($300/year) for Disney+, Hulu, Peacock, etc.",
+                safety: "Infinite PREMIA also offers an $8 monthly streaming credit."
             }
         };
 
@@ -116,13 +167,12 @@
             const display = document.getElementById('display-area');
             const cardName = document.getElementById('card-name');
             const benefitText = document.getElementById('benefit-text');
-            const secondaryBox = document.getElementById('secondary-benefit-box');
-            const secondaryText = document.getElementById('secondary-text');
+            const safetyBox = document.getElementById('safety-box');
+            const safetyText = document.getElementById('safety-text');
             
             const data = cards[val];
 
             if (data) {
-                // Show area with animation
                 display.classList.remove('hidden', 'opacity-0', 'translate-y-4');
                 display.classList.add('opacity-100', 'translate-y-0');
                 
@@ -130,10 +180,10 @@
                 benefitText.innerText = data.benefit;
 
                 if (data.safety) {
-                    secondaryBox.classList.remove('hidden');
-                    secondaryText.innerText = data.safety;
+                    safetyBox.classList.remove('hidden');
+                    safetyText.innerText = data.safety;
                 } else {
-                    secondaryBox.classList.add('hidden');
+                    safetyBox.classList.add('hidden');
                 }
             }
         }
