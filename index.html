@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Wallet</title>
+    <title>Edwin's Wallet</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkRhaWx5IFdhbGxldCIsCiAgInNob3J0X25hbWUiOiAiRGFpbHkiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzAxMDQwOSIsCiAgInRoZW1lX2NvbG9yIjogIiMwMTA0MDkiCn0=">
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkVkd2luJ3MgV2FsbGV0IiwKICAic2hvcnRfbmFtZSI6ICJXYWxsZXQiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzAxMDQwOSIsCiAgInRoZW1lX2NvbG9yIjogIiMwMTA0MDkiCn0=">
     <style>
         .card-face { transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .active-selection { border: 3px solid #3b82f6; transform: scale(1.02); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="bg-[#010409] text-gray-100 font-sans min-h-screen pb-12">
@@ -19,25 +20,29 @@
             <p class="text-gray-500 text-[10px] font-bold tracking-[0.3em]">DAILY REWARDS OPTIMIZER</p>
         </header>
 
-        <div class="flex gap-2 overflow-x-auto pb-6 no-scrollbar">
-            <div class="min-w-[120px] h-20 rounded-lg bg-gradient-to-br from-gray-300 to-gray-500 flex items-end p-2 border border-white/20">
-                <span class="text-[8px] font-black text-black uppercase">Schwab Plat</span>
+        <div class="flex gap-3 overflow-x-auto pb-8 no-scrollbar">
+            <div class="min-w-[140px] h-24 rounded-xl bg-gradient-to-br from-gray-300 to-gray-500 flex flex-col justify-between p-3 border border-white/20 shadow-lg">
+                <span class="text-[10px] font-black text-black italic">AMEX</span>
+                <span class="text-[8px] font-black text-black uppercase">Schwab Platinum</span>
             </div>
-            <div class="min-w-[120px] h-20 rounded-lg bg-gradient-to-br from-blue-600 to-blue-900 flex items-end p-2 border border-white/20">
-                <span class="text-[8px] font-black text-white uppercase">Costco Biz</span>
+            <div class="min-w-[140px] h-24 rounded-xl bg-gradient-to-br from-blue-600 to-blue-900 flex flex-col justify-between p-3 border border-white/20 shadow-lg text-white">
+                <span class="text-[10px] font-black italic">VISA</span>
+                <span class="text-[8px] font-black uppercase">Costco Business</span>
             </div>
-            <div class="min-w-[120px] h-20 rounded-lg bg-gradient-to-br from-indigo-900 to-black flex items-end p-2 border border-white/20">
-                <span class="text-[8px] font-black text-white uppercase">Infinite</span>
+            <div class="min-w-[140px] h-24 rounded-xl bg-gradient-to-br from-indigo-900 to-black flex flex-col justify-between p-3 border border-white/20 shadow-lg text-white">
+                <span class="text-[10px] font-black italic text-indigo-400">VISA</span>
+                <span class="text-[8px] font-black uppercase">PREMIA Infinite</span>
             </div>
-            <div class="min-w-[120px] h-20 rounded-lg bg-gradient-to-br from-gray-800 to-black flex items-end p-2 border border-white/20">
-                <span class="text-[8px] font-black text-white uppercase">Amazon Prime</span>
+            <div class="min-w-[140px] h-24 rounded-xl bg-gradient-to-br from-gray-800 to-black flex flex-col justify-between p-3 border border-white/20 shadow-lg text-white">
+                <span class="text-[10px] font-black italic text-blue-400">VISA</span>
+                <span class="text-[8px] font-black uppercase">Amazon Prime</span>
             </div>
         </div>
 
         <div class="mb-8">
-            <label for="category" class="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-2 ml-1">Select Spending Category</label>
+            <label for="category" class="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-2 ml-1">Spending Category</label>
             <select id="category" onchange="updateCard()" class="w-full bg-[#161b22] border border-gray-800 text-white text-base rounded-xl p-4 focus:ring-2 focus:ring-blue-500 outline-none appearance-none cursor-pointer">
-                <option value="" disabled selected>Tap to choose...</option>
+                <option value="" disabled selected>Tap to choose category...</option>
                 
                 <optgroup label="Auto & Transport">
                     <option value="gas">⛽ Gas & Fuel (Auto)</option>
@@ -75,7 +80,7 @@
 
         <div id="display-area" class="hidden space-y-6">
             
-            <div>
+            <div class="animate-in slide-in-from-bottom duration-300">
                 <p class="text-[10px] font-bold text-blue-500 uppercase tracking-widest mb-3 ml-1">Primary Selection</p>
                 <div id="card1-bg" class="card-face relative h-44 w-full rounded-2xl p-6 flex flex-col justify-between overflow-hidden">
                     <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl" id="card1-icon">💳</div>
@@ -89,7 +94,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="animate-in slide-in-from-bottom duration-300 delay-75">
                 <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 ml-1">Secondary (Backup)</p>
                 <div id="card2-bg" class="card-face relative h-40 w-full rounded-2xl p-5 flex flex-col justify-between overflow-hidden border border-gray-800">
                     <div class="absolute top-0 right-0 p-4 opacity-5 text-5xl" id="card2-icon">💳</div>
@@ -115,23 +120,23 @@
         };
 
         const logic = {
-            gas: { c1: 'costco', b1: "4% Cash Back on Gas/EV (first $7k/yr). [cite: 5152]", c2: 'infinite', b2: "1 Point per $1 (Standard return)." },
-            rideshare: { c1: 'amex', b1: "Use $15/mo Uber Cash Credit ($20 in Dec). [cite: 3930]", c2: 'amazon', b2: "2% Back on local transit/rideshare." },
-            service: { c1: 'costco', b1: "3% Back on Car Rentals. 1% on Parts/Service. [cite: 5154]", c2: 'infinite', b2: "Standard 1 Point per $1." },
-            dining: { c1: 'costco', b1: "3% Cash Back on Restaurants & Bars worldwide. [cite: 5154]", c2: 'amazon', b2: "2% Back on Dining category." },
-            fastfood: { c1: 'costco', b1: "3% Back (Includes Fast Food & Delivery). [cite: 5154]", c2: 'amazon', b2: "2% Back on Dining category." },
-            coffee: { c1: 'costco', b1: "3% Back on Coffee Shops. [cite: 5154]", c2: 'amazon', b2: "2% Back on Dining category." },
-            costco: { c1: 'costco', b1: "2% Cash Back on all Costco & Costco.com purchases. [cite: 5157]", c2: 'infinite', b2: "Visa accepted at warehouse. 1 Pt/$1." },
-            groceries: { c1: 'amazon', b1: "5% Back at Whole Foods & Amazon Fresh.", c2: 'costco', b2: "1% Cash Back at standard supermarkets. [cite: 5174]" },
+            gas: { c1: 'costco', b1: "4% Cash Back on Gas/EV (first $7k/yr). 5% at Costco stations.", c2: 'infinite', b2: "1 Point per $1 (Standard return)." },
+            rideshare: { c1: 'amex', b1: "Use $15/mo Uber Cash Credit ($20 in Dec).", c2: 'amazon', b2: "2% Back on local transit and rideshare." },
+            service: { c1: 'costco', b1: "3% Back on Car Rentals. 1% on Parts and Service.", c2: 'infinite', b2: "Standard 1 Point per $1." },
+            dining: { c1: 'costco', b1: "3% Cash Back on Restaurants and Bars worldwide.", c2: 'amazon', b2: "2% Back on Dining category." },
+            fastfood: { c1: 'costco', b1: "3% Back (Includes Fast Food and Delivery).", c2: 'amazon', b2: "2% Back on Dining category." },
+            coffee: { c1: 'costco', b1: "3% Back on Coffee Shops.", c2: 'amazon', b2: "2% Back on Dining category." },
+            costco: { c1: 'costco', b1: "2% Cash Back on all Costco and Costco.com purchases.", c2: 'infinite', b2: "Visa accepted at warehouse. 1 Point per $1." },
+            groceries: { c1: 'amazon', b1: "5% Back at Whole Foods and Amazon Fresh.", c2: 'costco', b2: "1% Cash Back at standard supermarkets." },
             electronics: { c1: 'amazon', b1: "5% Back on Amazon. Includes 1-yr Extended Warranty.", c2: 'infinite', b2: "Provides high-limit Purchase Protection." },
-            clothing: { c1: 'amex', b1: "Use $100 Saks Credit ($50 semi-annually). [cite: 4918]", c2: 'amazon', b2: "1% Back elsewhere." },
-            healthcare: { c1: 'amex', b1: "Best for medical due to high dispute support.", c2: 'infinite', b2: "1 Point per $1 - Widely accepted in PR." },
-            fitness: { c1: 'amex', b1: "$300 Annual Equinox Membership Credit. [cite: 4033]", c2: 'infinite', b2: "1 Point per $1." },
-            personal: { c1: 'amex', b1: "Apply Saks credit for luxury personal care. [cite: 4918]", c2: 'infinite', b2: "Visa Concierge for spa arrangements." },
-            media: { c1: 'amex', b1: "$25/mo Digital Entertainment Credit ($300/yr). [cite: 3986]", c2: 'infinite', b2: "$8/mo Streaming Credit (if spend >$30)." },
+            clothing: { c1: 'amex', b1: "Use $100 Saks Credit ($50 semi-annually).", c2: 'amazon', b2: "1% Back elsewhere." },
+            healthcare: { c1: 'amex', b1: "Best for medical due to high dispute and customer support.", c2: 'infinite', b2: "1 Point per $1 - Widely accepted in PR." },
+            fitness: { c1: 'amex', b1: "$300 Annual Equinox Membership Credit.", c2: 'infinite', b2: "1 Point per $1." },
+            personal: { c1: 'amex', b1: "Apply Saks credit for luxury personal care.", c2: 'infinite', b2: "Visa Concierge for spa and salon arrangements." },
+            media: { c1: 'amex', b1: "$25/mo Digital Entertainment Credit ($300/yr).", c2: 'infinite', b2: "$8/mo Streaming Credit (if monthly spend >$30)." },
             utilities: { c1: 'infinite', b1: "1 Point per $1. Reliable for recurring PR bills.", c2: 'amex', b2: "1X Points per $1." },
-            pets: { c1: 'costco', b1: "2% Back on food/vet at Costco. [cite: 5157]", c2: 'amazon', b2: "5% Back on Amazon pet supplies." },
-            repairs: { c1: 'infinite', b1: "1 Point per $1. Protects high-value item purchases.", c2: 'costco', b2: "1% Cash Back." }
+            pets: { c1: 'costco', b1: "2% Back on food and vet at Costco warehouse.", c2: 'amazon', b2: "5% Back on Amazon recurring pet supplies." },
+            repairs: { c1: 'infinite', b1: "1 Point per $1. Protects high-value maintenance items.", c2: 'costco', b2: "1% Cash Back." }
         };
 
         function updateCard() {
