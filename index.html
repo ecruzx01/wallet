@@ -1,4 +1,40 @@
-0 mt-4">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Digital Wallet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        body {
+            background-image: linear-gradient(to bottom, rgba(1, 4, 9, 0.5), rgba(1, 4, 9, 0.9)), url('wallet.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-color: #010409;
+        }
+        .glass-panel {
+            background: rgba(22, 27, 34, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .card-face { 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8); 
+        }
+        * { -webkit-tap-highlight-color: transparent; }
+    </style>
+</head>
+<body class="text-gray-100 font-sans min-h-screen">
+
+    <div class="max-w-md mx-auto p-6 min-h-screen flex flex-col">
+        <header class="text-center mt-6 mb-4">
+            <h1 class="text-4xl font-black text-blue-500 tracking-tighter uppercase italic">Digital Wallet</h1>
+            <p class="text-gray-400 text-[10px] font-bold tracking-[0.4em] mt-1 uppercase text-center">Rewards Optimizer</p>
+        </header>
+
+        <div class="mb-10 mt-4">
             <div class="glass-panel rounded-3xl p-1 shadow-2xl">
                 <select id="category" onchange="updateCard()" class="w-full bg-transparent text-white text-sm font-black uppercase tracking-widest rounded-2xl p-5 outline-none appearance-none cursor-pointer">
                     <option value="" disabled selected class="bg-[#0d1117]">Select Category</option>
@@ -134,183 +170,6 @@
                 window.scrollTo({ top: display.offsetTop - 50, behavior: 'smooth' });
             }
         }
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Edwin's Wallet</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="manifest" href="manifest.json">
-    <style>
-        body {
-            background-image: linear-gradient(to bottom, rgba(1, 4, 9, 0.5), rgba(1, 4, 9, 0.9)), url('wallet.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-color: #010409;
-        }
-        .glass-panel {
-            background: rgba(22, 27, 34, 0.85);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .card-face { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 20px 50px rgba(0,0,0,0.8); }
-        .tab-active { color: #3b82f6; border-bottom: 2px solid #3b82f6; }
-        * { -webkit-tap-highlight-color: transparent; }
-    </style>
-</head>
-<body class="text-gray-100 font-sans min-h-screen">
-
-    <div class="max-w-md mx-auto p-6 min-h-screen flex flex-col">
-        <header class="text-center mt-6 mb-4">
-            <h1 class="text-3xl font-black text-blue-500 tracking-tighter uppercase italic">Edwin's Wallet</h1>
-            <p class="text-gray-400 text-[10px] font-bold tracking-[0.4em] mt-1 uppercase">Rewards Optimizer</p>
-        </header>
-
-        <nav class="flex justify-center space-x-8 mb-8 text-xs font-bold uppercase tracking-widest text-gray-500">
-            <button id="tab-daily" onclick="switchTab('daily')" class="pb-2 tab-active transition-all">Daily Life</button>
-            <button id="tab-expedition" onclick="switchTab('expedition')" class="pb-2 transition-all">Riviera Expedition</button>
-        </nav>
-
-        <div class="mb-10">
-            <div class="glass-panel rounded-3xl p-1 shadow-2xl">
-                <select id="main-selector" onchange="updateCard()" class="w-full bg-transparent text-white text-sm font-black uppercase tracking-widest rounded-2xl p-5 outline-none appearance-none cursor-pointer">
-                    </select>
-            </div>
-        </div>
-
-        <div id="display-area" class="hidden space-y-8 pb-12">
-            <div class="animate-in slide-in-from-bottom duration-500">
-                <p class="text-[10px] font-bold text-blue-500 uppercase tracking-widest mb-3 ml-2">Primary Choice</p>
-                <div id="card1-bg" class="card-face relative h-48 w-full rounded-3xl p-6 flex flex-col justify-between overflow-hidden border border-white/10">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 text-7xl" id="card1-icon">💳</div>
-                    <div>
-                        <h3 id="card1-name" class="text-2xl font-black italic tracking-tight uppercase text-white"></h3>
-                        <p id="card1-type" class="text-[10px] font-bold opacity-60 uppercase mt-1 text-white"></p>
-                    </div>
-                    <div class="bg-black/60 p-4 rounded-2xl backdrop-blur-xl border border-white/10">
-                        <p id="card1-benefit" class="text-xs font-bold leading-relaxed text-white"></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="animate-in slide-in-from-bottom duration-500 delay-100">
-                <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 ml-2">Secondary Choice</p>
-                <div id="card2-bg" class="card-face relative h-40 w-full rounded-3xl p-5 flex flex-col justify-between overflow-hidden border border-gray-800">
-                    <div>
-                        <h3 id="card2-name" class="text-xl font-bold uppercase text-white"></h3>
-                        <p id="card2-type" class="text-[9px] font-bold opacity-50 uppercase mt-1 text-white"></p>
-                    </div>
-                    <div class="bg-black/40 p-3 rounded-xl border border-white/5">
-                        <p id="card2-benefit" class="text-[11px] font-medium text-gray-400 leading-snug"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // PWA Registration
-        if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
-
-        const cards = {
-            amex: { name: "Amex Schwab Platinum", type: "American Express", color: "from-gray-300 to-gray-500", icon: "🏛️" },
-            costco: { name: "Costco Anywhere Biz", type: "Visa Business", color: "from-blue-600 to-blue-900", icon: "🛒" },
-            amazon: { name: "Amazon Prime Rewards", type: "Visa Signature", color: "from-gray-800 to-black", icon: "📦" },
-            infinite: { name: "PREMIA Infinite", type: "Visa Infinite", color: "from-indigo-900 to-black", icon: "💎" }
-        };
-
-        const menus = {
-            daily: [
-                { val: "gas", text: "⛽ Gas & Fuel (Auto)" },
-                { val: "rideshare", text: "🚗 Rideshare (Uber/Taxi)" },
-                { val: "dining", text: "🍽️ Restaurants & Dining" },
-                { val: "costco_ware", text: "🛒 Costco Warehouse" },
-                { val: "groceries", text: "🍏 Groceries (Non-Costco)" },
-                { val: "electronics", text: "💻 Electronics & Tech" },
-                { val: "healthcare", text: "🏥 Health Services" },
-                { val: "personal", text: "💇 Personal Care" },
-                { val: "utilities", text: "⚡ Utilities & Internet" },
-                { val: "pets", text: "🐕 Pets & Veterinary" }
-            ],
-            expedition: [
-                { val: "diesel", text: "🚤 Marina Diesel" },
-                { val: "marina", text: "⚓ Marina & Dockage" },
-                { val: "exp_dining", text: "🍽️ Port Restaurants & Bars" },
-                { val: "exp_repairs", text: "🔧 Repairs & Maintenance" },
-                { val: "boat_supplies", text: "📦 Boat Equipment & Supplies" },
-                { val: "exp_groceries", text: "🛒 Expedition Provisioning" },
-                { val: "car_rent", text: "🚗 Car Rental (Port)" },
-                { val: "scuba", text: "🤿 Scuba & Gear Rental" },
-                { val: "tours", text: "🗺️ Tours & Excursions" },
-                { val: "shopping", text: "🛍️ Expedition Shopping" },
-                { val: "clothing", text: "👕 Expedition Clothing" }
-            ]
-        };
-
-        const logic = {
-            // DAILY LIFE
-            gas: { c1: 'costco', b1: "Earn 4% back on eligible auto gas and EV charging globally for the first $7,000 per year.", c2: 'infinite', b2: "Standard 1 Point per $1 spent." },
-            rideshare: { c1: 'amex', b1: "Apply $15 monthly Uber credits ($20 in Dec).", c2: 'amazon', b2: "Earn 2% cash back on local transit." },
-            dining: { c1: 'costco', b1: "Earn 3% cash back on restaurant purchases worldwide, including bars and fast food.", c2: 'amazon', b2: "Earn 2% cash back on dining." },
-            costco_ware: { c1: 'costco', b1: "Earn 2% cash back on all Costco and Costco.com purchases.", c2: 'infinite', b2: "Accepted Visa at warehouse. 1 Point per $1." },
-            groceries: { c1: 'amazon', b1: "Earn 5% back at Whole Foods Market and Amazon Fresh.", c2: 'costco', b2: "Earn 1% cash back at standard supermarkets." },
-            electronics: { c1: 'amazon', b1: "Earn 5% back on Amazon. Includes 1-yr Extended Warranty.", c2: 'infinite', b2: "High-limit Purchase Protection up to $10,000." },
-            healthcare: { c1: 'amex', b1: "Best support for large medical billing disputes.", c2: 'infinite', b2: "Widely accepted in Puerto Rico. 1 Point per $1." },
-            personal: { c1: 'amex', b1: "Apply Saks credits and use Concierge for spa/salon arrangements.", c2: 'infinite', b2: "1 Point per $1." },
-            utilities: { c1: 'infinite', b1: "Reliable for recurring PR bills. 1 Point per $1.", c2: 'amex', b2: "Standard 1X Membership Rewards." },
-            pets: { c1: 'costco', b1: "Earn 2% back on bulk food and vet at the warehouse.", c2: 'amazon', b2: "Earn 5% back on recurring Amazon pet orders." },
-
-            // RIVIERA EXPEDITION
-            diesel: { c1: 'amex', b1: "Earn 1X points. Marina diesel only earns 1% on Costco Biz as it is non-automobile fuel.", c2: 'infinite', b2: "Standard 1 Point per $1." },
-            marina: { c1: 'infinite', b1: "1 Point per $1. Use for docking to ensure high-value Purchase Protection on mooring gear.", c2: 'amex', b2: "1X Membership Rewards point." },
-            exp_dining: { c1: 'costco', b1: "Earn 3% cash back on restaurants, bars, and cafes in port worldwide.", c2: 'amazon', b2: "Earn 2% cash back on dining." },
-            exp_repairs: { c1: 'infinite', b1: "Best for shipyard maintenance due to $10k Purchase Protection per event.", c2: 'costco', b2: "Earn 1% cash back." },
-            boat_supplies: { c1: 'amazon', b1: "Earn 5% back on tech and equipment purchased via Amazon.", c2: 'costco', b2: "Earn 2% back if buying in-warehouse." },
-            exp_groceries: { c1: 'costco', b1: "Earn 2% back on all bulk provisioning at the warehouse.", c2: 'amazon', b2: "Earn 5% back at Whole Foods Market." },
-            car_rent: { c1: 'costco', b1: "Earn 3% cash back on car rentals worldwide.", c2: 'infinite', b2: "Provides primary rental coverage up to 31 days." },
-            scuba: { c1: 'costco', b1: "Earn 3% back (Travel category) on gear rental and boat excursions.", c2: 'infinite', b2: "Includes $3,000 Baggage Loss coverage for lost or stolen gear." },
-            tours: { c1: 'costco', b1: "Earn 3% back on tour operators and travel agencies.", c2: 'amex', b2: "Premium dispute protection for travel services." },
-            shopping: { c1: 'amazon', b1: "Earn 5% back on Amazon orders for expedition essentials.", c2: 'amex', b2: "Purchase protection for luxury retail gear." },
-            clothing: { c1: 'amex', b1: "Apply Saks credits for high-end gear. Premium purchase protection.", c2: 'amazon', b2: "1% cash back." }
-        };
-
-        function switchTab(mode) {
-            const selector = document.getElementById('main-selector');
-            const dailyBtn = document.getElementById('tab-daily');
-            const expBtn = document.getElementById('tab-expedition');
-            dailyBtn.className = mode === 'daily' ? 'pb-2 tab-active transition-all' : 'pb-2 transition-all';
-            expBtn.className = mode === 'expedition' ? 'pb-2 tab-active transition-all' : 'pb-2 transition-all';
-            selector.innerHTML = `<option value="" disabled selected>Select Category</option>`;
-            menus[mode].forEach(item => { selector.innerHTML += `<option value="${item.val}">${item.text}</option>`; });
-            document.getElementById('display-area').classList.add('hidden');
-        }
-
-        function updateCard() {
-            const val = document.getElementById('main-selector').value;
-            const display = document.getElementById('display-area');
-            const data = logic[val];
-            if (data) {
-                display.classList.remove('hidden');
-                const c1 = cards[data.c1];
-                document.getElementById('card1-name').innerText = c1.name;
-                document.getElementById('card1-type').innerText = c1.type;
-                document.getElementById('card1-benefit').innerText = data.b1;
-                document.getElementById('card1-bg').className = `card-face relative h-48 w-full rounded-3xl p-6 flex flex-col justify-between overflow-hidden bg-gradient-to-br ${c1.color}`;
-                document.getElementById('card1-icon').innerText = c1.icon;
-                const c2 = cards[data.c2];
-                document.getElementById('card2-name').innerText = c2.name;
-                document.getElementById('card2-type').innerText = c2.type;
-                document.getElementById('card2-benefit').innerText = data.b2;
-                document.getElementById('card2-bg').className = `card-face relative h-40 w-full rounded-3xl p-5 flex flex-col justify-between overflow-hidden border border-gray-800 bg-gradient-to-br ${c2.color} bg-opacity-10`;
-                window.scrollTo({ top: display.offsetTop - 50, behavior: 'smooth' });
-            }
-        }
-        switchTab('daily');
     </script>
 </body>
 </html>
