@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Cash Back Maximizer</title>
+    <title>Cas Back Maximizing</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkVkd2luJ3MgV2FsbGV0IiwKICAic2hvcnRfbmFtZSI6ICJXYWxsZXQiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzAxMDQwOSIsCiAgInRoZW1lX2NvbG9yIjogIiMwMTA0MDkiCn0=">
     <style>
         body {
-            background-image: linear-gradient(to bottom, rgba(1, 4, 9, 0.5), rgba(1, 4, 9, 0.9)), url('wallet.jpg');
+            background-image: linear-gradient(to bottom, rgba(1, 4, 9, 0.4), rgba(1, 4, 9, 0.9)), url('wallet.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -16,80 +16,56 @@
         }
         .glass-panel {
             background: rgba(22, 27, 34, 0.85);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .card-face { transition: all 0.3s ease; box-shadow: 0 10px 40px rgba(0,0,0,0.7); }
+        .card-face { transition: all 0.4s ease; box-shadow: 0 20px 50px rgba(0,0,0,0.8); }
         .tab-active { color: #3b82f6; border-bottom: 2px solid #3b82f6; }
     </style>
 </head>
 <body class="text-gray-100 font-sans min-h-screen">
 
     <div class="max-w-md mx-auto p-6 min-h-screen flex flex-col">
-        <header class="text-center mt-4 mb-4">
+        <header class="text-center mt-6 mb-4">
             <h1 class="text-3xl font-black text-blue-500 tracking-tighter uppercase italic">Edwin's Wallet</h1>
-            <p class="text-gray-400 text-[10px] font-bold tracking-[0.3em] mt-1 uppercase">Rewards Optimizer</p>
+            <p class="text-gray-400 text-[10px] font-bold tracking-[0.4em] mt-1 uppercase">Rewards Optimizer</p>
         </header>
 
         <nav class="flex justify-center space-x-8 mb-8 text-xs font-bold uppercase tracking-widest text-gray-500">
-            <button id="tab-daily" onclick="switchTab('daily')" class="pb-2 tab-active">Daily Life</button>
-            <button id="tab-expedition" onclick="switchTab('expedition')" class="pb-2">Riviera Expedition</button>
+            <button id="tab-daily" onclick="switchTab('daily')" class="pb-2 tab-active transition-all">Daily Life</button>
+            <button id="tab-expedition" onclick="switchTab('expedition')" class="pb-2 transition-all">Riviera Expedition</button>
         </nav>
 
-        <div class="mb-12">
-            <div class="glass-panel rounded-2xl p-1 shadow-2xl">
-                <select id="category" onchange="updateCard()" class="w-full bg-transparent text-white text-sm font-bold uppercase tracking-wide rounded-xl p-4 outline-none appearance-none cursor-pointer">
-                    <option value="" disabled selected class="bg-[#0d1117]">What are we paying for?</option>
-                    
-                    <optgroup label="Daily Life" id="group-daily" class="bg-[#0d1117]">
-                        <option value="gas">⛽ Gas & Fuel (Auto)</option>
-                        <option value="groceries">🍏 Groceries (Non-Costco)</option>
-                        <option value="healthcare">🏥 Healthcare</option>
-                        <option value="media">📺 Subscriptions</option>
-                        <option value="utilities">⚡ Utilities</option>
-                    </optgroup>
-
-                    <optgroup label="Riviera 53 Expedition" id="group-expedition" class="bg-[#0d1117] hidden">
-                        <option value="diesel">🚤 Marina Diesel</option>
-                        <option value="marina">⚓ Dockage & Mooring</option>
-                        <option value="boat_dining">🍽️ Port Restaurants & Bars</option>
-                        <option value="boat_repairs">🔧 Boat Repairs & Maintenance</option>
-                        <option value="boat_supplies">📦 Equipment & Supplies</option>
-                        <option value="boat_groceries">🛒 Expedition Provisioning</option>
-                        <option value="boat_car">🚗 Car Rental (In Port)</option>
-                        <option value="scuba">🤿 Scuba & Gear Rental</option>
-                        <option value="tours">🗺️ Tours & Local Guidance</option>
-                        <option value="boat_shopping">🛍️ Expedition Shopping</option>
-                    </optgroup>
-                </select>
+        <div class="mb-10">
+            <div class="glass-panel rounded-3xl p-1 shadow-2xl">
+                <select id="main-selector" onchange="updateCard()" class="w-full bg-transparent text-white text-sm font-black uppercase tracking-widest rounded-2xl p-5 outline-none appearance-none cursor-pointer">
+                    </select>
             </div>
         </div>
 
-        <div id="display-area" class="hidden space-y-8 pb-10">
-            
-            <div class="animate-in slide-in-from-bottom duration-400">
-                <p class="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-3 ml-1">Primary Selection</p>
-                <div id="card1-bg" class="card-face relative h-44 w-full rounded-2xl p-6 flex flex-col justify-between overflow-hidden border border-white/10">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl" id="card1-icon">💳</div>
+        <div id="display-area" class="hidden space-y-8 pb-12">
+            <div class="animate-in slide-in-from-bottom duration-500">
+                <p class="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-3 ml-2">Primary Selection</p>
+                <div id="card1-bg" class="card-face relative h-48 w-full rounded-3xl p-6 flex flex-col justify-between overflow-hidden border border-white/10">
                     <div>
-                        <h3 id="card1-name" class="text-xl font-black italic tracking-tight uppercase text-white"></h3>
-                        <p id="card1-type" class="text-[9px] font-bold opacity-60 uppercase mt-1 text-white"></p>
+                        <h3 id="card1-name" class="text-2xl font-black italic tracking-tight uppercase text-white"></h3>
+                        <p id="card1-type" class="text-[10px] font-bold opacity-60 uppercase mt-1 text-white"></p>
                     </div>
-                    <div class="bg-black/60 p-3 rounded-xl backdrop-blur-md border border-white/10">
-                        <p id="card1-benefit" class="text-[11px] font-bold leading-tight text-white"></p>
+                    <div class="bg-black/60 p-4 rounded-2xl backdrop-blur-xl border border-white/10">
+                        <p id="card1-benefit" class="text-xs font-bold leading-relaxed text-white"></p>
                     </div>
                 </div>
             </div>
 
-            <div class="animate-in slide-in-from-bottom duration-400 delay-75">
-                <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 ml-1">Secondary Selection</p>
-                <div id="card2-bg" class="card-face relative h-40 w-full rounded-2xl p-5 flex flex-col justify-between overflow-hidden border border-gray-800">
+            <div class="animate-in slide-in-from-bottom duration-500 delay-100">
+                <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 ml-2">Secondary Choice</p>
+                <div id="card2-bg" class="card-face relative h-40 w-full rounded-3xl p-5 flex flex-col justify-between overflow-hidden border border-gray-800">
                     <div>
-                        <h3 id="card2-name" class="text-lg font-bold uppercase text-white"></h3>
-                        <p id="card2-type" class="text-[8px] font-bold opacity-50 uppercase mt-1 text-white"></p>
+                        <h3 id="card2-name" class="text-xl font-bold uppercase text-white"></h3>
+                        <p id="card2-type" class="text-[9px] font-bold opacity-50 uppercase mt-1 text-white"></p>
                     </div>
-                    <div class="bg-black/40 p-2 rounded-lg border border-white/5">
-                        <p id="card2-benefit" class="text-[10px] font-medium text-gray-400"></p>
+                    <div class="bg-black/40 p-3 rounded-xl border border-white/5">
+                        <p id="card2-benefit" class="text-[11px] font-medium text-gray-400 leading-snug"></p>
                     </div>
                 </div>
             </div>
@@ -104,38 +80,77 @@
             infinite: { name: "PREMIA Infinite", type: "Visa Infinite", color: "from-indigo-900 to-black" }
         };
 
+        const menus = {
+            daily: [
+                { val: "gas", text: "⛽ Gas & Fuel (Auto)" },
+                { val: "rideshare", text: "🚗 Rideshare (Uber/Taxi)" },
+                { val: "dining", text: "🍽️ Restaurants & Dining" },
+                { val: "costco_ware", text: "🛒 Costco Warehouse" },
+                { val: "groceries", text: "🍏 Groceries (Non-Costco)" },
+                { val: "electronics", text: "💻 Electronics & Tech" },
+                { val: "healthcare", text: "🏥 Health Services" },
+                { val: "personal", text: "💇 Personal Care" },
+                { val: "utilities", text: "⚡ Utilities & Internet" }
+            ],
+            expedition: [
+                { val: "diesel", text: "🚤 Marina Diesel" },
+                { val: "marina", text: "⚓ Marina & Dockage" },
+                { val: "exp_dining", text: "🍽️ Port Restaurants & Bars" },
+                { val: "repairs", text: "🔧 Boat Repairs" },
+                { val: "supplies", text: "📦 Boat Equipment & Supplies" },
+                { val: "exp_groceries", text: "🛒 Expedition Groceries" },
+                { val: "car_rent", text: "🚗 Car Rental" },
+                { val: "scuba", text: "🤿 Scuba Equipment Rental" },
+                { val: "tours", text: "🗺️ Tours & Excursions" },
+                { val: "shopping", text: "🛍️ Expedition Shopping" },
+                { val: "clothing", text: "👕 Expedition Clothing" }
+            ]
+        };
+
         const logic = {
-            // Expedition Specifics
-            diesel: { c1: 'amex', b1: "1X Membership Rewards. Best value for high-volume diesel as Costco excludes boat fuel from its 4% tier.", c2: 'amazon', b2: "1% Cash Back as a solid secondary option." },
-            marina: { c1: 'amazon', b1: "1% Cash Back. Most marinas code as 'Marine Services' rather than travel.", c2: 'amex', b2: "1X Membership Rewards point." },
-            boat_dining: { c1: 'costco', b1: "3% Cash Back on restaurants and bars worldwide.", c2: 'amazon', b2: "2% Cash Back on dining." },
-            boat_repairs: { c1: 'infinite', b1: "1 Point per $1. Best for high-stakes repairs to utilize high-limit Purchase Protection.", c2: 'costco', b2: "1% Cash Back." },
-            boat_supplies: { c1: 'amazon', b1: "5% Back on all tech and equipment purchased via Amazon.", c2: 'costco', b2: "2% Back if provisioning at Costco warehouse." },
-            boat_groceries: { c1: 'amazon', b1: "5% Back at Whole Foods/Amazon Fresh for premium provisions.", c2: 'costco', b2: "2% Back for bulk warehouse provisions." },
-            boat_car: { c1: 'costco', b1: "3% Back on Car Rentals plus standard travel perks.", c2: 'infinite', b2: "Primary rental coverage for periods up to 31 days." },
-            scuba: { c1: 'costco', b1: "3% Back (Travel category). High-limit coverage for adventurous activities.", c2: 'infinite', b2: "$3,000 Baggage/Gear loss protection for diving equipment." },
-            tours: { c1: 'costco', b1: "3% Back on eligible travel agencies and tour operators.", c2: 'amex', b2: "1X points. Best for high-value tour payments." },
-            boat_shopping: { c1: 'amex', b1: "Use $100 Saks Credit. Best for high-end expedition gear.", c2: 'amazon', b2: "5% Back on Amazon-based shopping." },
-            
-            // Daily Life Logic
-            gas: { c1: 'costco', b1: "4% back on auto fuel (first $7k/yr).", c2: 'infinite', b2: "Standard 1 Point per $1." },
-            groceries: { c1: 'amazon', b1: "5% at Whole Foods Market.", c2: 'costco', b2: "1% at supermarkets." },
-            healthcare: { c1: 'amex', b1: "Best support for medical billing disputes.", c2: 'infinite', b2: "Widely accepted in PR. 1 Pt/$1." },
-            media: { c1: 'amex', b1: "$25/mo entertainment credits.", c2: 'infinite', b2: "$8/mo streaming credit." },
-            utilities: { c1: 'infinite', b1: "Reliable for recurring PR bills.", c2: 'amex', b2: "Standard 1X points." }
+            // Daily Routine
+            gas: { c1: 'costco', b1: "4% cash back on gas and EV charging globally for the first $7,000 per year.", c2: 'infinite', b2: "Standard 1 Point per $1." },
+            rideshare: { c1: 'amex', b1: "Apply $15 monthly Uber credits ($20 in Dec).", c2: 'amazon', b2: "2% back on transit." },
+            dining: { c1: 'costco', b1: "3% cash back on restaurant purchases worldwide.", c2: 'amazon', b2: "2% back on dining." },
+            costco_ware: { c1: 'costco', b1: "2% cash back on all Costco and Costco.com purchases.", c2: 'infinite', b2: "Accepted Visa. 1 Pt/$1." },
+            groceries: { c1: 'amazon', b1: "5% back at Whole Foods/Amazon Fresh.", c2: 'costco', b2: "1% back at standard supermarkets." },
+            electronics: { c1: 'amazon', b1: "5% back + 1-yr Extended Warranty.", c2: 'infinite', b2: "$10k Purchase Protection." },
+            healthcare: { c1: 'amex', b1: "Premium customer service for medical billing disputes.", c2: 'infinite', b2: "Widely accepted in PR. 1 Pt/$1." },
+            personal: { c1: 'amex', b1: "Saks semi-annual credits ($50 x 2).", c2: 'infinite', b2: "Concierge for spa bookings." },
+            utilities: { c1: 'infinite', b1: "Reliable for PR bills. 1 Pt/$1.", c2: 'amex', b2: "Standard 1X points." },
+
+            // Riviera Expedition
+            diesel: { c1: 'amex', b1: "1X points. The 4% Costco tier excludes fuel used for non-automobile purposes.", c2: 'infinite', b2: "Standard 1 Point per $1 return." },
+            marina: { c1: 'infinite', b1: "1 Pt/$1. Purchase Protection covers mooring gear.", c2: 'amex', b2: "Standard 1X Membership Rewards." },
+            exp_dining: { c1: 'costco', b1: "3% cash back on restaurants, bars, and lounges worldwide.", c2: 'amazon', b2: "2% back on dining." },
+            repairs: { c1: 'infinite', b1: "$10k Purchase Protection per event—best for shipyard maintenance.", c2: 'costco', b2: "Standard 1% cash back." },
+            supplies: { c1: 'amazon', b1: "5% back on tech/equipment from Amazon.", c2: 'costco', b2: "2% back at warehouse clubs." },
+            exp_groceries: { c1: 'costco', b1: "2% back for bulk expedition provisioning.", c2: 'amazon', b2: "5% back at Whole Foods." },
+            car_rent: { c1: 'costco', b1: "3% cash back on car rentals worldwide.", c2: 'infinite', b2: "Primary rental coverage (31 days)." },
+            scuba: { c1: 'costco', b1: "3% back on travel agencies and excursions.", c2: 'infinite', b2: "$3,000 Baggage Loss covers diving gear." },
+            tours: { c1: 'costco', b1: "3% back on tour operators and travel purchases.", c2: 'amex', b2: "Superior travel dispute protections." },
+            shopping: { c1: 'amazon', b1: "5% back on Amazon purchases.", c2: 'amex', b2: "Purchase protection for high-end retail." },
+            clothing: { c1: 'amex', b1: "$100 Saks Credit. Luxury protection.", c2: 'amazon', b2: "1% cash back." }
         };
 
         function switchTab(mode) {
-            document.getElementById('tab-daily').classList.toggle('tab-active', mode === 'daily');
-            document.getElementById('tab-expedition').classList.toggle('tab-active', mode === 'expedition');
-            document.getElementById('group-daily').classList.toggle('hidden', mode === 'expedition');
-            document.getElementById('group-expedition').classList.toggle('hidden', mode === 'daily');
-            document.getElementById('category').value = "";
+            const selector = document.getElementById('main-selector');
+            const dailyBtn = document.getElementById('tab-daily');
+            const expBtn = document.getElementById('tab-expedition');
+            
+            dailyBtn.className = mode === 'daily' ? 'pb-2 tab-active' : 'pb-2';
+            expBtn.className = mode === 'expedition' ? 'pb-2 tab-active' : 'pb-2';
+            
+            selector.innerHTML = `<option value="" disabled selected>Select Category</option>`;
+            menus[mode].forEach(item => {
+                selector.innerHTML += `<option value="${item.val}">${item.text}</option>`;
+            });
+            
             document.getElementById('display-area').classList.add('hidden');
         }
 
         function updateCard() {
-            const val = document.getElementById('category').value;
+            const val = document.getElementById('main-selector').value;
             const display = document.getElementById('display-area');
             const data = logic[val];
             if (data) {
@@ -143,6 +158,25 @@
                 const c1 = cards[data.c1];
                 document.getElementById('card1-name').innerText = c1.name;
                 document.getElementById('card1-type').innerText = c1.type;
+                document.getElementById('card1-benefit').innerText = data.b1;
+                document.getElementById('card1-bg').className = `card-face relative h-48 w-full rounded-3xl p-6 flex flex-col justify-between overflow-hidden bg-gradient-to-br ${c1.color}`;
+                
+                const c2 = cards[data.c2];
+                document.getElementById('card2-name').innerText = c2.name;
+                document.getElementById('card2-type').innerText = c2.type;
+                document.getElementById('card2-benefit').innerText = data.b2;
+                document.getElementById('card2-bg').className = `card-face relative h-40 w-full rounded-3xl p-5 flex flex-col justify-between overflow-hidden border border-gray-800 bg-gradient-to-br ${c2.color} bg-opacity-10`;
+                
+                window.scrollTo({ top: display.offsetTop - 50, behavior: 'smooth' });
+            }
+        }
+
+        // Initialize with Daily Life
+        switchTab('daily');
+    </script>
+</body>
+</html>
+ c1.type;
                 document.getElementById('card1-benefit').innerText = data.b1;
                 document.getElementById('card1-bg').className = `card-face relative h-44 w-full rounded-2xl p-6 flex flex-col justify-between overflow-hidden bg-gradient-to-br ${c1.color}`;
                 const c2 = cards[data.c2];
