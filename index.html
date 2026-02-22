@@ -23,6 +23,7 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             box-shadow: 0 20px 50px rgba(0,0,0,0.8); 
         }
+        .tab-active { color: #3b82f6; border-bottom: 2px solid #3b82f6; }
         * { -webkit-tap-highlight-color: transparent; }
     </style>
 </head>
@@ -31,58 +32,24 @@
     <div class="max-w-md mx-auto p-6 min-h-screen flex flex-col">
         <header class="text-center mt-6 mb-4">
             <h1 class="text-4xl font-black text-blue-500 tracking-tighter uppercase italic">Digital Wallet</h1>
-            <p class="text-gray-400 text-[10px] font-bold tracking-[0.4em] mt-1 uppercase text-center">Rewards Optimizer</p>
+            <p class="text-gray-400 text-[10px] font-bold tracking-[0.4em] mt-1 uppercase text-center">Cash Back Optimizer</p>
         </header>
 
-        <div class="mb-10 mt-4">
+        <nav class="flex justify-center space-x-8 mb-8 text-xs font-bold uppercase tracking-widest text-gray-500">
+            <button id="tab-daily" onclick="switchTab('daily')" class="pb-2 tab-active transition-all">Daily Life</button>
+            <button id="tab-expedition" onclick="switchTab('expedition')" class="pb-2 transition-all">Riviera Expedition</button>
+        </nav>
+
+        <div class="mb-10">
             <div class="glass-panel rounded-3xl p-1 shadow-2xl">
                 <select id="category" onchange="updateCard()" class="w-full bg-transparent text-white text-sm font-black uppercase tracking-widest rounded-2xl p-5 outline-none appearance-none cursor-pointer">
-                    <option value="" disabled selected class="bg-[#0d1117]">Select Category</option>
-                    
-                    <optgroup label="Auto & Transport" class="bg-[#0d1117]">
-                        <option value="gas">⛽ Gas & Fuel</option>
-                        <option value="rideshare">🚗 Rideshare (Uber/Taxi)</option>
-                        <option value="service">🔧 Service & Parts</option>
-                        <option value="insurance">🛡️ Car Insurance</option>
-                    </optgroup>
-
-                    <optgroup label="Dining & Drinks" class="bg-[#0d1117]">
-                        <option value="dining">🍽️ Restaurants & Dining</option>
-                        <option value="fastfood">🍔 Fast Food & Delivery</option>
-                        <option value="coffee">☕ Coffee Shops</option>
-                        <option value="bars">🍸 Bars & Lounges</option>
-                    </optgroup>
-
-                    <optgroup label="Groceries & Shopping" class="bg-[#0d1117]">
-                        <option value="costco">🛒 Warehouse Club</option>
-                        <option value="groceries">🍏 Groceries</option>
-                        <option value="electronics">💻 Electronics & Tech</option>
-                        <option value="hobbies">🔫 Hobbies (Guns/Diving)</option>
-                        <option value="clothing">👕 Clothing & Retail</option>
-                    </optgroup>
-
-                    <optgroup label="Health & Personal" class="bg-[#0d1117]">
-                        <option value="healthcare">🏥 Health Services</option>
-                        <option value="fitness">💪 Fitness & Gym</option>
-                        <option value="personal">💇 Personal Care</option>
-                        <option value="pharmacy">💊 Pharmacy & Vitamins</option>
-                    </optgroup>
-
-                    <optgroup label="Home & Others" class="bg-[#0d1117]">
-                        <option value="maintenance">🏠 Home Maintenance</option>
-                        <option value="kids">🧒 Family Needs</option>
-                        <option value="pets">🐕 Pets & Veterinary</option>
-                        <option value="media">📺 Subscriptions</option>
-                        <option value="utilities">⚡ Utilities & Internet</option>
-                    </optgroup>
-                </select>
+                    </select>
             </div>
         </div>
 
         <div id="display-area" class="hidden space-y-8 pb-12">
-            
             <div class="animate-in slide-in-from-bottom duration-500">
-                <p class="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-3 ml-2 text-center">Primary Selection</p>
+                <p class="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-3 ml-2 text-center">Primary Cash Back Choice</p>
                 <div id="card1-bg" class="card-face relative h-48 w-full rounded-3xl p-6 flex flex-col justify-between overflow-hidden border border-white/10">
                     <div class="absolute top-0 right-0 p-4 opacity-10 text-7xl" id="card1-icon">💳</div>
                     <div>
@@ -96,7 +63,7 @@
             </div>
 
             <div class="animate-in slide-in-from-bottom duration-500 delay-100">
-                <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 ml-2 text-center">Secondary (Backup)</p>
+                <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 ml-2 text-center">Secondary Choice</p>
                 <div id="card2-bg" class="card-face relative h-40 w-full rounded-3xl p-5 flex flex-col justify-between overflow-hidden border border-gray-800">
                     <div class="absolute top-0 right-0 p-4 opacity-5 text-5xl" id="card2-icon">💳</div>
                     <div>
@@ -112,10 +79,7 @@
     </div>
 
     <script>
-        // Register Service Worker for PWA
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js');
-        }
+        if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
 
         const cards = {
             amex: { name: "Amex Schwab Platinum", type: "American Express", color: "from-gray-300 to-gray-500", icon: "🏛️" },
@@ -124,30 +88,79 @@
             infinite: { name: "PREMIA Infinite", type: "Visa Infinite", color: "from-indigo-900 to-black", icon: "💎" }
         };
 
-        const logic = {
-            gas: { c1: 'costco', b1: "Earn 4% back on gas and EV charging globally for the first $7,000 per year, and 5% specifically at warehouse club stations.", c2: 'infinite', b2: "Standard 1 Point per $1 spent." },
-            rideshare: { c1: 'amex', b1: "Apply monthly credits for rides or delivery services.", c2: 'amazon', b2: "Earn 2% cash back on local transit and rideshare." },
-            service: { c1: 'costco', b1: "Earn 3% back on car rentals. Parts and maintenance earn the base 1% cash back.", c2: 'infinite', b2: "Standard 1 Point per $1 spent." },
-            insurance: { c1: 'infinite', b1: "Utilize primary car rental coverage for periods up to 31 days.", c2: 'costco', b2: "Provides standard purchase protections." },
-            dining: { c1: 'costco', b1: "Earn 3% cash back on restaurants, cafes, bars, and lounges worldwide.", c2: 'amazon', b2: "Earn 2% cash back on the dining category." },
-            fastfood: { c1: 'costco', b1: "Earn 3% back (includes fast food and delivery).", c2: 'amazon', b2: "Earn 2% back on the dining category." },
-            coffee: { c1: 'costco', b1: "Earn 3% cash back on coffee shop purchases.", c2: 'amazon', b2: "Earn 2% back on the dining category." },
-            bars: { c1: 'costco', b1: "Earn 3% cash back on bar and lounge tabs worldwide.", c2: 'amex', b2: "Earn 1X points—useful for high group tabs." },
-            costco: { c1: 'costco', b1: "Earn 2% cash back on all warehouse and warehouse.com purchases.", c2: 'infinite', b2: "Visa is accepted. Earn 1 Point per $1." },
-            groceries: { c1: 'amazon', b1: "Earn 5% cash back at specific grocery partners.", c2: 'costco', b2: "Earn 1% cash back at standard supermarkets." },
-            electronics: { c1: 'amazon', b1: "Earn 5% back on tech and receive an Extended Warranty that adds a year to the manufacturer's coverage.", c2: 'infinite', b2: "Provides high-limit Purchase Protection up to $10,000 per event." },
-            hobbies: { c1: 'amazon', b1: "Earn 5% back on tech and gear. Purchase Protection covers 120 days.", c2: 'infinite', b2: "Includes high-limit coverage for lost or damaged specific gear." },
-            clothing: { c1: 'amex', b1: "Utilize annual statement credits at specific luxury retailers.", c2: 'infinite', b2: "High-limit Purchase Protection for luxury items." },
-            healthcare: { c1: 'amex', b1: "Best for medical due to superior customer service and dispute support.", c2: 'infinite', b2: "Accepted in most clinics. Earn 1 Point per $1." },
-            fitness: { c1: 'amex', b1: "Apply annual fitness membership credits.", c2: 'infinite', b2: "Standard 1 Point per $1 spent." },
-            personal: { c1: 'amex', b1: "Apply statement credits for high-end personal care. Use Concierge for bookings.", c2: 'infinite', b2: "Concierge for spa and salon arrangements." },
-            pharmacy: { c1: 'infinite', b1: "Widely accepted. Earn 1 Point per $1.", c2: 'amazon', b2: "Earn 1% cash back." },
-            maintenance: { c1: 'infinite', b1: "Best for large purchases due to strong Purchase Protection.", c2: 'costco', b2: "Earn 1% cash back on maintenance items." },
-            kids: { c1: 'costco', b1: "Earn 2% back on bulk supplies and household items.", c2: 'amazon', b2: "Earn 5% back on specific retail purchases." },
-            pets: { c1: 'costco', b1: "Earn 2% back on bulk food and veterinary supplies.", c2: 'amazon', b2: "Earn 5% back on recurring deliveries." },
-            media: { c1: 'amex', b1: "Use monthly Digital Entertainment Credits for specific streaming services.", c2: 'infinite', b2: "Includes streaming credits if monthly spend exceeds a threshold." },
-            utilities: { c1: 'infinite', b1: "Reliable for recurring utility bills. Earn 1 Point per $1.", c2: 'amex', b2: "Standard 1X Membership Rewards point." }
+        const menus = {
+            daily: [
+                { val: "gas", text: "⛽ Gas & Fuel" },
+                { val: "rideshare", text: "🚗 Rideshare (Uber/Taxi)" },
+                { val: "service", text: "🔧 Service & Parts" },
+                { val: "dining", text: "🍽️ Restaurants & Dining" },
+                { val: "fastfood", text: "🍔 Fast Food & Delivery" },
+                { val: "costco", text: "🛒 Warehouse Club" },
+                { val: "groceries", text: "🍏 Groceries" },
+                { val: "electronics", text: "💻 Electronics & Tech" },
+                { val: "hobbies", text: "🔫 Hobbies (Guns/Diving)" },
+                { val: "healthcare", text: "🏥 Health Services" },
+                { val: "fitness", text: "💪 Fitness & Gym" },
+                { val: "personal", text: "💇 Personal Care" },
+                { val: "pharmacy", text: "💊 Pharmacy & Vitamins" },
+                { val: "utilities", text: "⚡ Utilities & Internet" }
+            ],
+            expedition: [
+                { val: "diesel", text: "🚤 Marina Diesel" },
+                { val: "marina", text: "⚓ Marina & Dockage" },
+                { val: "exp_dining", text: "🍽️ Port Restaurants & Bars" },
+                { val: "repairs", text: "🔧 Repairs & Maintenance" },
+                { val: "supplies", text: "📦 Boat Equipment & Supplies" },
+                { val: "exp_groceries", text: "🛒 Expedition Groceries" },
+                { val: "boat_car", text: "🚗 Car Rental (Port)" },
+                { val: "scuba", text: "🤿 Scuba & Gear Rental" },
+                { val: "tours", text: "🗺️ Tours & Excursions" },
+                { val: "shopping", text: "🛍️ Expedition Shopping" },
+                { val: "exp_clothing", text: "👕 Expedition Clothing" }
+            ]
         };
+
+        const logic = {
+            // DAILY LIFE logic prioritizing cash back
+            gas: { c1: 'costco', b1: "Earn 4% cash back on gas and EV charging globally for the first $7,000 per year.", c2: 'amazon', b2: "Earn 2% cash back at gas stations." },
+            rideshare: { c1: 'amazon', b1: "Earn 2% cash back on local transit and rideshare.", c2: 'amex', b2: "Apply monthly Uber credits if points aren't preferred." },
+            service: { c1: 'costco', b1: "Earn 3% back on car rentals. Parts and maintenance earn the base 1% cash back.", c2: 'infinite', b2: "1 Point per $1 spent." },
+            dining: { c1: 'costco', b1: "Earn 3% cash back on restaurants, cafes, and bars worldwide.", c2: 'amazon', b2: "Earn 2% cash back on dining." },
+            fastfood: { c1: 'costco', b1: "Earn 3% cash back on fast food and delivery.", c2: 'amazon', b2: "Earn 2% cash back on dining." },
+            costco: { c1: 'costco', b1: "Earn 2% cash back on all warehouse and warehouse.com purchases.", c2: 'infinite', b2: "Accepted Visa at warehouse." },
+            groceries: { c1: 'amazon', b1: "Earn 5% cash back at Whole Foods Market and Amazon Fresh.", c2: 'costco', b2: "Earn 1% cash back at standard supermarkets." },
+            electronics: { c1: 'amazon', b1: "Earn 5% cash back on tech and receive an Extended Warranty.", c2: 'infinite', b2: "High-limit Purchase Protection." },
+            hobbies: { c1: 'amazon', b1: "Earn 5% cash back on tech and gear purchased via Amazon.", c2: 'infinite', b2: "Includes high-limit coverage for lost gear." },
+            healthcare: { c1: 'costco', b1: "Earn 1% cash back. Use for direct rewards on medical expenses.", c2: 'amex', b2: "Superior customer support for large billing disputes." },
+            fitness: { c1: 'costco', b1: "Earn 1% cash back on gym memberships.", c2: 'amex', b2: "Apply annual fitness credits." },
+            personal: { c1: 'costco', b1: "Earn 1% cash back on personal care services.", c2: 'amex', b2: "Apply Saks semi-annual credits." },
+            pharmacy: { c1: 'amazon', b1: "Earn 1% cash back. Easy tracking in the Amazon app.", c2: 'costco', b2: "Earn 1% cash back." },
+            utilities: { c1: 'costco', b1: "Earn 1% cash back on recurring utility bills.", c2: 'infinite', b2: "Reliable for PR bills." },
+            
+            // EXPEDITION logic prioritizing cash back
+            diesel: { c1: 'costco', b1: "Earn 1% cash back. Marina diesel is excluded from the 4% tier as it is non-automobile fuel.", c2: 'amazon', b2: "Earn 1% cash back." },
+            marina: { c1: 'costco', b1: "Earn 1% cash back on docking and marine services.", c2: 'infinite', b2: "Purchase Protection for mooring gear." },
+            exp_dining: { c1: 'costco', b1: "Earn 3% cash back on port restaurants and bars worldwide.", c2: 'amazon', b2: "Earn 2% cash back on dining." },
+            repairs: { c1: 'costco', b1: "Earn 1% cash back on maintenance and repairs.", c2: 'infinite', b2: "Best for shipyard maintenance due to $10,000 Purchase Protection." },
+            supplies: { c1: 'amazon', b1: "Earn 5% cash back on tech and equipment purchased via Amazon.", c2: 'costco', b2: "Earn 2% cash back if provisioning at the warehouse." },
+            exp_groceries: { c1: 'costco', b1: "Earn 2% cash back for bulk provisioning at the warehouse.", c2: 'amazon', b2: "Earn 5% cash back at Whole Foods Market." },
+            boat_car: { c1: 'costco', b1: "Earn 3% cash back on car rentals worldwide.", c2: 'infinite', b2: "Primary rental coverage for periods up to 31 days." },
+            scuba: { c1: 'costco', b1: "Earn 3% cash back on gear rental and excursions as part of eligible travel.", c2: 'infinite', b2: "$3,000 Baggage Loss coverage for diving gear." },
+            tours: { c1: 'costco', b1: "Earn 3% cash back on tour operators and travel agencies.", c2: 'amex', b2: "Premium dispute protection for travel services." },
+            shopping: { c1: 'amazon', b1: "Earn 5% cash back on Amazon orders for expedition essentials.", c2: 'costco', b2: "Earn 1% cash back elsewhere." },
+            exp_clothing: { c1: 'costco', b1: "Earn 1% cash back on clothing and gear.", c2: 'amex', b2: "Apply Saks credits for high-end gear." }
+        };
+
+        function switchTab(mode) {
+            const selector = document.getElementById('category');
+            const dailyBtn = document.getElementById('tab-daily');
+            const expBtn = document.getElementById('tab-expedition');
+            dailyBtn.className = mode === 'daily' ? 'pb-2 tab-active transition-all' : 'pb-2 transition-all';
+            expBtn.className = mode === 'expedition' ? 'pb-2 tab-active transition-all' : 'pb-2 transition-all';
+            selector.innerHTML = `<option value="" disabled selected>Select Category</option>`;
+            menus[mode].forEach(item => { selector.innerHTML += `<option value="${item.val}" class="bg-[#0d1117]">${item.text}</option>`; });
+            document.getElementById('display-area').classList.add('hidden');
+        }
 
         function updateCard() {
             const val = document.getElementById('category').value;
@@ -161,6 +174,7 @@
                 document.getElementById('card1-benefit').innerText = data.b1;
                 document.getElementById('card1-bg').className = `card-face relative h-48 w-full rounded-3xl p-6 flex flex-col justify-between overflow-hidden bg-gradient-to-br ${c1.color}`;
                 document.getElementById('card1-icon').innerText = c1.icon;
+
                 const c2 = cards[data.c2];
                 document.getElementById('card2-name').innerText = c2.name;
                 document.getElementById('card2-type').innerText = c2.type;
@@ -170,6 +184,7 @@
                 window.scrollTo({ top: display.offsetTop - 50, behavior: 'smooth' });
             }
         }
+        switchTab('daily');
     </script>
 </body>
 </html>
