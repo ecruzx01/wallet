@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Digital Wallet</title>
+    <title>Edwin's Wallet</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="manifest" href="manifest.json">
     <style>
@@ -30,10 +30,144 @@
 
     <div class="max-w-md mx-auto p-6 min-h-screen flex flex-col">
         <header class="text-center mt-6 mb-4">
-            <h1 class="text-4xl font-black text-blue-500 tracking-tighter uppercase italic">Jaky's Digital Wallet</h1>
+            <h1 class="text-4xl font-black text-blue-500 tracking-tighter uppercase italic">Edwin's Wallet</h1>
             <p class="text-gray-400 text-[10px] font-bold tracking-[0.4em] mt-1 uppercase text-center">Rewards Optimizer</p>
         </header>
 
+        <div class="mb-10 mt-4">
+            <div class="glass-panel rounded-3xl p-1 shadow-2xl">
+                <select id="category" onchange="updateCard()" class="w-full bg-transparent text-white text-sm font-black uppercase tracking-widest rounded-2xl p-5 outline-none appearance-none cursor-pointer">
+                    <option value="" disabled selected class="bg-[#0d1117]">Select Category</option>
+                    
+                    <optgroup label="The Riviera (Expedition Mode)" class="bg-[#0d1117]">
+                        <option value="diesel">🚤 Marina Diesel & Fuel</option>
+                        <option value="marina">⚓ Marina & Mooring Fees</option>
+                        <option value="repairs">🔧 Boat Repairs & Maintenance</option>
+                        <option value="supplies">📦 Boat Equipment & Supplies</option>
+                        <option value="scuba">🤿 Scuba & Gear Rental</option>
+                        <option value="exp_dining">🍴 Expedition Dining & Bars</option>
+                        <option value="tours">🗺️ Tours & Excursions</option>
+                        <option value="travel">✈️ Intl. Travel (Flights/Hotels)</option>
+                    </optgroup>
+
+                    <optgroup label="Auto & Transport" class="bg-[#0d1117]">
+                        <option value="gas">⛽ Road Gas & Fuel</option>
+                        <option value="car_rental">🚗 Car Rental</option>
+                        <option value="rideshare">🚕 Rideshare (Uber/Taxi)</option>
+                    </optgroup>
+
+                    <optgroup label="Daily Essentials" class="bg-[#0d1117]">
+                        <option value="costco">🛒 Costco Warehouse</option>
+                        <option value="groceries">🍏 Groceries (Non-Costco)</option>
+                        <option value="shopping">👕 Shopping & Clothing</option>
+                        <option value="electronics">💻 Electronics & Tech</option>
+                        <option value="pets">🐕 Pets & Veterinary</option>
+                    </optgroup>
+
+                    <optgroup label="Health & Personal" class="bg-[#0d1117]">
+                        <option value="healthcare">🏥 Health (Doctor/Dentist)</option>
+                        <option value="fitness">💪 Fitness & Gym</option>
+                        <option value="personal">💇 Personal Care</option>
+                    </optgroup>
+
+                    <optgroup label="Home & Media" class="bg-[#0d1117]">
+                        <option value="media">📺 Streaming & Media</option>
+                        <option value="utilities">⚡ Utilities & Internet</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+
+        <div id="display-area" class="hidden space-y-8 pb-12">
+            
+            <div class="animate-in slide-in-from-bottom duration-500">
+                <p class="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-3 ml-2 text-center">Primary Selection</p>
+                <div id="card1-bg" class="card-face relative h-48 w-full rounded-3xl p-6 flex flex-col justify-between overflow-hidden border border-white/10">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 text-7xl" id="card1-icon">💳</div>
+                    <div>
+                        <h3 id="card1-name" class="text-2xl font-black italic tracking-tight uppercase text-white"></h3>
+                        <p id="card1-type" class="text-[10px] font-bold opacity-60 uppercase mt-1 text-white"></p>
+                    </div>
+                    <div class="bg-black/60 p-4 rounded-2xl backdrop-blur-xl border border-white/10">
+                        <p id="card1-benefit" class="text-xs font-bold leading-relaxed text-white"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="animate-in slide-in-from-bottom duration-500 delay-100">
+                <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 ml-2 text-center">Secondary (Backup)</p>
+                <div id="card2-bg" class="card-face relative h-40 w-full rounded-3xl p-5 flex flex-col justify-between overflow-hidden border border-gray-800">
+                    <div>
+                        <h3 id="card2-name" class="text-xl font-bold uppercase text-white"></h3>
+                        <p id="card2-type" class="text-[9px] font-bold opacity-50 uppercase mt-1 text-white"></p>
+                    </div>
+                    <div class="bg-black/40 p-3 rounded-xl border border-white/5">
+                        <p id="card2-benefit" class="text-[11px] font-medium text-gray-400 leading-snug"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
+
+        const cards = {
+            amex: { name: "Amex Schwab Platinum", type: "American Express", color: "from-gray-300 to-gray-500" },
+            costco: { name: "Costco Anywhere Biz", type: "Visa Business", color: "from-blue-600 to-blue-900" },
+            amazon: { name: "Amazon Prime Rewards", type: "Visa Signature", color: "from-gray-800 to-black" },
+            infinite: { name: "PREMIA Infinite", type: "Visa Infinite", color: "from-indigo-900 to-black" },
+            max: { name: "PREMIA Business Max", type: "Visa Business", color: "from-amber-600 to-amber-900" }
+        };
+
+        const logic = {
+            diesel: { c1: 'amex', b1: "Marinas code as 'Marine Services'. Take the high-value Amex 1X point.", c2: 'infinite', b2: "Standard 1 Point per $1." },
+            marina: { c1: 'amazon', b1: "1% Cash back. Good for tracking boat expenses separately.", c2: 'amex', b2: "1X Membership Rewards point." },
+            repairs: { c1: 'max', b1: "Use the Commercial Credit Card Manager to track and set limits for contractors.", c2: 'infinite', b2: "$10,000 purchase protection per event." },
+            supplies: { c1: 'amazon', b1: "5% Back on Amazon for boat parts + Extended Warranty.", c2: 'costco', b2: "2% Back if provisioning gear at the warehouse." },
+            scuba: { c1: 'infinite', b1: "$3,000 baggage loss covers scuba equipment and underwater cameras.", c2: 'costco', b2: "3% Back if rental is part of a travel package." },
+            exp_dining: { c1: 'costco', b1: "3% Cash back on restaurants, bars, and lounges worldwide.", c2: 'amazon', b2: "2% Back on dining." },
+            tours: { c1: 'costco', b1: "3% Back on eligible travel including travel agencies and tours.", c2: 'infinite', b2: "Use for the Visa Infinite concierge for tour bookings." },
+            travel: { c1: 'amex', b1: "5X Points on flights + $1.5M accident insurance + $200 hotel credit.", c2: 'infinite', b2: "Global Entry credit and LoungeKey access." },
+            gas: { c1: 'costco', b1: "4% back on road gas and EV charging (up to $7k/yr).", c2: 'infinite', b2: "1 Pt/$1." },
+            car_rental: { c1: 'costco', b1: "3% Cash back on car rentals worldwide.", c2: 'infinite', b2: "Primary rental coverage for up to 31 days." },
+            rideshare: { c1: 'amex', b1: "Apply $15-$20/mo Uber credits.", c2: 'amazon', b2: "2% back on transit/rideshare." },
+            costco: { c1: 'costco', b1: "2% back on all warehouse purchases.", c2: 'infinite', b2: "Visa accepted. 1 Pt/$1." },
+            groceries: { c1: 'amazon', b1: "5% back at Whole Foods/Amazon Fresh.", c2: 'costco', b2: "1% back at supermarkets." },
+            shopping: { c1: 'amex', b1: "Use $100 Saks credit. Best for luxury clothing.", c2: 'infinite', b2: "$10,000 purchase protection." },
+            electronics: { c1: 'amazon', b1: "5% back + 1-yr Extended Warranty on Nikon gear.", c2: 'infinite', b2: "$10k Purchase Protection." },
+            healthcare: { c1: 'amex', b1: "Best support for large billing disputes.", c2: 'infinite', b2: "Widely accepted in PR. 1 Pt/$1." },
+            fitness: { c1: 'amex', b1: "Apply $300 annual Equinox credit.", c2: 'infinite', b2: "1 Point per $1." },
+            personal: { c1: 'amex', b1: "Apply Saks credits for high-end care.", c2: 'infinite', b2: "Concierge for spa bookings." },
+            media: { c1: 'amex', b1: "$25/mo entertainment credits.", c2: 'infinite', b2: "$8/mo streaming credit." },
+            utilities: { c1: 'infinite', b1: "Reliable for recurring PR bills. 1 Pt/$1.", c2: 'amex', b2: "1X points." },
+            pets: { c1: 'costco', b1: "2% back on bulk food/vet.", c2: 'amazon', b2: "5% back on recurring deliveries." }
+        };
+
+        function updateCard() {
+            const val = document.getElementById('category').value;
+            const display = document.getElementById('display-area');
+            const data = logic[val];
+            if (data) {
+                display.classList.remove('hidden');
+                const c1 = cards[data.c1];
+                document.getElementById('card1-name').innerText = c1.name;
+                document.getElementById('card1-type').innerText = c1.type;
+                document.getElementById('card1-benefit').innerText = data.b1;
+                document.getElementById('card1-bg').className = `card-face relative h-48 w-full rounded-3xl p-6 flex flex-col justify-between overflow-hidden bg-gradient-to-br ${c1.color}`;
+                
+                const c2 = cards[data.c2];
+                document.getElementById('card2-name').innerText = c2.name;
+                document.getElementById('card2-type').innerText = c2.type;
+                document.getElementById('card2-benefit').innerText = data.b2;
+                document.getElementById('card2-bg').className = `card-face relative h-40 w-full rounded-3xl p-5 flex flex-col justify-between overflow-hidden border border-gray-800 bg-gradient-to-br ${c2.color} bg-opacity-10`;
+                
+                window.scrollTo({ top: display.offsetTop - 50, behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>
         <div class="mb-10 mt-4">
             <div class="glass-panel rounded-3xl p-1 shadow-2xl">
                 <select id="category" onchange="updateCard()" class="w-full bg-transparent text-white text-sm font-black uppercase tracking-widest rounded-2xl p-5 outline-none appearance-none cursor-pointer">
